@@ -1,6 +1,6 @@
-import logo from '../assets/images/logo.svg';
-// You'll need to add the iceberg image to your assets folder
-import icebergBg from '../assets/images/foot.png';
+// Public folder assets - use direct URL paths
+const logo = '/images/logo.svg';
+const icebergBg = '/images/foot.png';
 
 export default function Footer() {
     return (

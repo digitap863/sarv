@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function About() {
   return (
@@ -34,11 +33,11 @@ export default function About() {
 // import { gsap } from 'gsap';
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // import { useEffect, useRef } from 'react';
-// import banner1 from '../assets/images/banner1.png';
-// import banner2 from '../assets/images/banner2.png';
-// import banner3 from '../assets/images/banner3.png';
-// import dwnarrw from '../assets/images/dwnarrw.svg';
-// import plant from '../assets/images/plant.png';
+// import banner1 from '../../public/images/banner1.png';
+// import banner2 from '../../public/images/banner2.png';
+// import banner3 from '../../public/images/banner3.png';
+// import dwnarrw from '../../public/images/dwnarrw.svg';
+// import plant from '../../public/images/plant.png';
 
 // gsap.registerPlugin(ScrollTrigger);
 
