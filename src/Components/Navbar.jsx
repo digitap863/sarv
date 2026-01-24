@@ -31,7 +31,7 @@ const Navbar = () => {
     return (
         <>
             <motion.nav
-                className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 w-[90%] max-w-7xl"
+                className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 md:w-[90%] w-[95%] max-w-7xl"
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{
@@ -40,7 +40,7 @@ const Navbar = () => {
                 }}
             >
                 <motion.div
-                    className="relative z-10 px-6 py-4"
+                    className="relative z-10 md:px-6 px-0 py-4"
                     animate={{
                         paddingTop: scrolled ? '0.75rem' : '1rem',
                         paddingBottom: scrolled ? '0.75rem' : '1rem'
@@ -63,7 +63,7 @@ const Navbar = () => {
                             <motion.img
                                 src={logo}
                                 alt="Sarv Sustain"
-                                className="h-20 w-auto"
+                                className="md:h-20 h-12 w-auto"
                                 animate={{
                                     height: scrolled ? '5rem' : '5rem'
                                 }}

@@ -105,13 +105,17 @@ const Banner = () => {
 
         const scrollDistance = horizontal.scrollWidth - window.innerWidth;
 
+        // Responsive scrub value - faster on mobile, slower on desktop
+        const isMobile = window.innerWidth < 768;
+        const scrubValue = isMobile ? 1.5 : 4;
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: wrapper,
                 start: "top top",
                 end: () => `+=${scrollDistance + 1000}`,
                 pin: true,
-                scrub: 4,
+                scrub: scrubValue,
                 invalidateOnRefresh: true,
                 markers: false,
             }
