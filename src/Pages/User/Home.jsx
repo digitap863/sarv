@@ -7,8 +7,6 @@ import Footer from '../../Components/Footer.jsx';
 
 
 
-
-
 function Home() {
   return (
     <>
@@ -17,8 +15,7 @@ function Home() {
         <About />
         <CoreServices />
         <Footer />
-    </>
-        
+    </> 
   )
 }
 
