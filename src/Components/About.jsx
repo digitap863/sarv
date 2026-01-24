@@ -1,132 +1,134 @@
+import { motion, useInView } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import SplitType from 'split-type';
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      staggerChildren: 0.2,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
 
 export default function About() {
+  const sectionRef = useRef(null);
+  const location = useLocation();
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+
+
+  useEffect(() => {
+    const initializeAnimations = () => {
+      const splitType = document.querySelector('.middletext');
+
+      if (splitType) {
+        if (splitType.isSplit) {
+          splitType.revert();
+        }
+
+        const text = new SplitType(splitType, {
+          types: 'chars,words',
+          absolute: false
+        });
+
+        ScrollTrigger.getAll().forEach(st => {
+          if (st.vars.trigger === '.middletext') {
+            st.kill();
+          }
+        });
+
+        gsap.from(text.chars, {
+          scrollTrigger: {
+            trigger: '.middletext',
+            start: 'top 90%',// when the top of the text reaches 80% of the viewport
+            end: 'top 30%',// when the top of the text reaches 20% of the viewport
+            scrub: true,// smooth scrubbing
+            markers: false,
+          },
+          opacity: 0.2,
+          stagger: 0.1,
+        });
+
+        ScrollTrigger.refresh();
+      }
+    };
+
+    const timer = setTimeout(() => {
+      initializeAnimations();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      // Only kill ScrollTriggers specific to this component
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.vars && trigger.vars.trigger === '.middletext') {
+          trigger.kill();
+        }
+      });
+      gsap.killTweensOf('.middletext');
+    };
+  }, [location.pathname]);
+
   return (
-    <section className="relative bg-red-500 py-20 px-6 h-[110vh] z-10 relative">
-      <div className="max-w-6xl mx-auto text-center">
+    <motion.section
+      ref={sectionRef}
+      id="about"
+      className="relative bg-white py-20 px-6 md:min-h-screen h-[80vh] flex flex-col items-center justify-center z-10"
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={containerVariants}
+    >
+      <div className="max-w-7xl mx-auto text-center">
         {/* Badge */}
-        <div className="flex justify-center mb-8">
+        <motion.div className="flex justify-center mb-8" variants={itemVariants}>
           <span className="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium">
             Who We Are
           </span>
-        </div>
+        </motion.div>
 
         {/* Main Heading */}
-        <h1 className="text-4xl font-normal leading-tight mb-8 text-gray-900">
-          SarvSustain empowers organizations to operate responsibly, <br/>
-          transparently, and sustainably. From our base in Dubai, we combine <br/>
-          global best practice with regional insight to turn ESG and GHG <br/>
+        <motion.p
+          className="md:text-[2.8vw] text-[7vw] font-normal leading-tight mb-8 text-gray-800 middletext"
+          variants={itemVariants}
+        >
+          SarvSustain empowers organizations to operate responsibly, <br className="md:block hidden"/>
+          transparently, and sustainably. From our base in Dubai, we combine <br className="md:block hidden"/>
+          global best practice with regional insight to turn ESG and GHG <br className="md:block hidden"/>
           ambitions into measurable results.
-        </h1>
+        </motion.p>
 
         {/* Learn More Button */}
-        <button className="border-2 border-green-600 text-green-600 px-10 py-2 rounded-full font-medium hover:bg-green-50 transition-colors">
+        <motion.button
+          className="border-2 border-green-600 text-green-600 px-10 py-2 rounded-full font-medium hover:bg-green-600 hover:text-white transition-colors"
+          variants={itemVariants}
+        >
           Learn More
-        </button>
+        </motion.button>
       </div>
-    </section>
+    </motion.section>
   );
 }
-
-
-
-
-// import { gsap } from 'gsap';
-// import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// import { useEffect, useRef } from 'react';
-// import banner1 from '../../public/images/banner1.png';
-// import banner2 from '../../public/images/banner2.png';
-// import banner3 from '../../public/images/banner3.png';
-// import dwnarrw from '../../public/images/dwnarrw.svg';
-// import plant from '../../public/images/plant.png';
-
-// gsap.registerPlugin(ScrollTrigger);
-
-
-// const Banner = () => {
-//     const mainWrapperRef = useRef(null); // Wrapper for both sections
-//     const horizontalRef = useRef(null);
-//     const section2Ref = useRef(null);
-
-//     useEffect(() => {
-//         const wrapper = mainWrapperRef.current;
-//         const horizontal = horizontalRef.current;
-//         const section2 = section2Ref.current;
-
-//         if (!wrapper || !horizontal || !section2) return;
-
-//         const scrollDistance = horizontal.scrollWidth - window.innerWidth;
-
-//         // Create one master timeline
-//         const tl = gsap.timeline({
-//             scrollTrigger: {
-//                 trigger: wrapper,
-//                 start: "top top",
-//                 // 'end' is horizontal distance + the height of the parallax reveal
-//                 end: () => `+=${scrollDistance + window.innerHeight}`, 
-//                 pin: true,
-//                 scrub: 1,
-//                 invalidateOnRefresh: true,
-//             }
-//         });
-
-//         // Step 1: Do the horizontal scroll
-//         tl.to(horizontal, {
-//             x: -scrollDistance,
-//             ease: "none"
-//         })
-//         // Step 2: Immediately bring Section 2 up (Parallel Axis Reveal)
-//         .fromTo(section2, 
-//             { y: "100vh" }, // Start off-screen at the bottom
-//             { y: "0vh", ease: "none" },
-//             ">" // Start right after the horizontal scroll finishes
-//         );
-
-//         return () => {
-//             ScrollTrigger.getAll().forEach(t => t.kill());
-//         };
-//     }, []);
-
-//     return (
-//         <div ref={mainWrapperRef} className="relative overflow-hidden">
-            
-//             {/* SECTION 1: Horizontal Content */}
-//             <div className="relative w-full h-screen overflow-hidden z-0">
-//                 {/* Fixed Arrow */}
-//                 <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-//                      <img src={dwnarrw} alt="Scroll Down" className="w-9 h-11" />
-//                 </div>
-
-//                 <div ref={horizontalRef} className="flex flex-row h-full w-[300vw]">
-//                     {/* Banners (Keep your existing Slide 1, 2, 3 divs here) */}
-//                     <div className="relative w-screen h-screen flex-shrink-0">
-//                         <img src={banner1} className="w-full h-full object-cover" alt="Banner 1" />
-//                         {/* ... your text content ... */}
-//                     </div>
-//                     <div className="relative w-screen h-screen flex-shrink-0">
-//                          <img src={banner2} className="w-full h-full object-cover" alt="Banner 2" />
-//                     </div>
-//                     <div className="relative w-screen h-screen flex-shrink-0">
-//                          <img src={banner3} className="w-full h-full object-cover" alt="Banner 3" />
-//                     </div>
-//                 </div>
-//             </div>
-
-//             {/* SECTION 2: Vertical Reveal */}
-//             <section 
-//                 ref={section2Ref}
-//                 className="absolute top-0 left-0 w-full min-h-screen bg-white py-20 px-6 z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.3)]"
-//             >
-//                 <div className="max-w-6xl mx-auto text-center">
-//                     {/* ... Section 2 Content ... */}
-//                     <div className="flex justify-center mb-8">
-//                         <span className="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium">Who We Are</span>
-//                     </div>
-//                     <h1 className="text-4xl text-gray-900">SarvSustain empowers organizations...</h1>
-//                 </div>
-//             </section>
-//         </div>
-//     );
-// };
-
-
-// export default Banner;

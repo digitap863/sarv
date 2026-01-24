@@ -1,9 +1,8 @@
-
+import { motion, useInView } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 
-// Public folder assets - use direct URL paths
 const banner1 = '/images/banner1.png';
 const banner2 = '/images/banner2.png';
 const banner3 = '/images/banner3.png';
@@ -13,70 +12,142 @@ const plant = '/images/plant.png';
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
+// Animation variants
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.9,
+            delayChildren: 0.2
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            ease: "easeOut"
+        }
+    }
+};
+
+const tagContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.3
+        }
+    }
+};
+
+const tagVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 20 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut"
+        }
+    }
+};
+
+const pointsContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+            delayChildren: 0.3
+        }
+    }
+};
+
 const Banner = () => {
-    const mainWrapperRef = useRef(null); // Wrapper for both sections
+    const mainWrapperRef = useRef(null);
     const horizontalRef = useRef(null);
-    const section2Ref = useRef(null);
+
+    // Refs for each slide to detect when in view
+    const slide1Ref = useRef(null);
+    const slide2Ref = useRef(null);
+    const slide3Ref = useRef(null);
+
+    // useInView hooks for each slide
+    const slide1InView = useInView(slide1Ref, { once: true, amount: 0.5 });
+    const slide2InView = useInView(slide2Ref, { once: true, amount: 0.3, margin: "0px -50% 0px 0px" });
+    const slide3InView = useInView(slide3Ref, { once: true, amount: 0.3, margin: "0px -50% 0px 0px" });
 
     useEffect(() => {
         const wrapper = mainWrapperRef.current;
         const horizontal = horizontalRef.current;
-        const section2 = section2Ref.current;
 
-        if (!wrapper || !horizontal || !section2) return;
+        if (!wrapper || !horizontal) return;
 
         const scrollDistance = horizontal.scrollWidth - window.innerWidth;
 
-        // Create one master timeline
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: wrapper,
                 start: "top top",
-                // 'end' is horizontal distance + the height of the parallax reveal
-                end: () => `+=${scrollDistance + window.innerHeight}`,
+                end: () => `+=${scrollDistance + 1000}`,
                 pin: true,
-                scrub: 1,
+                scrub: 4,
                 invalidateOnRefresh: true,
+                markers: false,
             }
         });
 
-        // Step 1: Do the horizontal scroll
         tl.to(horizontal, {
             x: -scrollDistance,
             ease: "none"
-        })
-            // Step 2: Immediately bring Section 2 up (Parallel Axis Reveal)
-            .fromTo(section2,
-                { y: "100vh" }, // Start off-screen at the bottom
-                { y: "0vh", ease: "none" },
-                ">" // Start right after the horizontal scroll finishes
-            );
+        });
 
         return () => {
-            ScrollTrigger.getAll().forEach(t => t.kill());
+            if (tl && tl.scrollTrigger) {
+                tl.scrollTrigger.kill();
+            }
+            if (tl) {
+                tl.kill();
+            }
         };
     }, []);
 
+
+
     return (
         <div ref={mainWrapperRef} className="relative overflow-hidden">
-
             {/* section1 */}
-            <div
-                className="relative w-full h-screen overflow-hidden z-0"
-            >
+            <div className="relative w-full h-screen overflow-hidden z-0">
                 {/* Down Arrow - Fixed Position */}
-                <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-0">
+                <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-0" onClick={() => document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })}>
                     <img src={dwnarrw} alt="Scroll Down" className="w-9 h-11 transition-all duration-300 cursor-pointer hover:translate-y-2" />
                     <p className="text-white font-normal text-sm">Click to see Services</p>
                 </div>
 
                 {/* Horizontal scrolling container */}
-                <div
-                    ref={horizontalRef}
-                    className="flex flex-row h-full w-[300vw]"
-                >
-                    {/* Image 1 - Text at bottom-right */}
-                    <div className="relative w-screen h-screen flex-shrink-0">
+                <div ref={horizontalRef} className="flex flex-row h-full w-[300vw]">
+                    {/* Slide 1 */}
+                    <div ref={slide1Ref} className="relative w-screen h-screen flex-shrink-0">
                         <img
                             src={banner1}
                             alt="Banner 1"
@@ -85,30 +156,46 @@ const Banner = () => {
                         <div className="absolute inset-0 bg-black/20"></div>
 
                         {/* Plant Card - Bottom Left */}
-                        <div className="absolute bottom-16 left-20 w-80">
-                            <div className="bg-gradient-to-r from-white/30 to-white/10 backdrop-blur-[1.5px] rounded-3xl p-6 border border-white/30">
+                        <motion.div
+                            className="absolute bottom-8 left-4 w-72 md:bottom-16 md:left-20 md:w-80"
+                            initial="hidden"
+                            animate={slide1InView ? "visible" : "hidden"}
+                            variants={cardVariants}
+                        >
+                            <div className="bg-gradient-to-r from-white/30 to-white/10 backdrop-blur-[1.5px] rounded-2xl md:rounded-3xl p-4 md:p-6 border border-white/30">
                                 <div className="w-10 h-10 bg-green-600 rounded-2xl flex items-center justify-center mb-6">
                                     <img src={plant} alt="Plant Icon" className="w-10 h-10" />
                                 </div>
-                                <p className="text-white text-sm leading-relaxed font-inter font-[300]">
+                                <p className="text-white text-xs md:text-sm leading-relaxed font-inter font-[300]">
                                     Long before forests rise and waters flow, healthy soil builds the foundation—holding nutrients, life, and the promise of sustainability.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Text Content - Bottom Right */}
-                        <div className="absolute bottom-16 right-20 text-right max-w-2xl px-4">
-                            <h2 className="text-5xl md:text-6xl font-medium text-white mb-6 leading- font-inter">
+                        <motion.div
+                            className="absolute md:bottom-8 bottom-[35%] right-4 text-right max-w-xs md:max-w-2xl px-2 md:bottom-16 md:right-20 md:px-4"
+                            initial="hidden"
+                            animate={slide1InView ? "visible" : "hidden"}
+                            variants={containerVariants}
+                        >
+                            <motion.h2
+                                className="text-2xl md:text-5xl lg:text-6xl font-medium text-white mb-3 md:mb-6 leading-tight font-inter"
+                                variants={itemVariants}
+                            >
                                 Healthy soil as the <br /> Supportive Base
-                            </h2>
-                            <p className="text-lg md:text-xl text-white/90 leading-">
+                            </motion.h2>
+                            <motion.p
+                                className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed"
+                                variants={itemVariants}
+                            >
                                 Everything strong starts below the surface. Healthy soil supports life silently, creating the conditions for growth, resilience, and renewal.
-                            </p>
-                        </div>
+                            </motion.p>
+                        </motion.div>
                     </div>
 
-                    {/* Image 2 - Text at right side, slightly above bottom */}
-                    <div className="relative w-screen h-screen flex-shrink-0">
+                    {/* Slide 2 */}
+                    <div ref={slide2Ref} className="relative w-screen h-screen flex-shrink-0">
                         <img
                             src={banner2}
                             alt="Banner 2"
@@ -117,38 +204,48 @@ const Banner = () => {
                         <div className="absolute inset-0 bg-black/20"></div>
 
                         {/* Keyword Tags - Bottom Left */}
-                        <div className="absolute bottom-16 left-20 flex flex-wrap gap-3 max-w-md">
-                            <div className="bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full px-6 py-3 border border-white/30 flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                <span className="text-white text-sm font-inter font-[300]">ecosystem balance</span>
-                            </div>
-                            <div className="bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full px-6 py-3 border border-white/30 flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                <span className="text-white text-sm font-inter font-[300]">biodiversity</span>
-                            </div>
-                            <div className="bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full px-6 py-3 border border-white/30 flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                <span className="text-white text-sm font-inter font-[300]">biological integrity</span>
-                            </div>
-                            <div className="bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full px-6 py-3 border border-white/30 flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                <span className="text-white text-sm font-inter font-[300]">natural equilibrium</span>
-                            </div>
-                        </div>
+                        <motion.div
+                            className="absolute bottom-8 left-4 flex flex-wrap gap-2 max-w-xs md:bottom-16 md:left-20 md:gap-3 md:max-w-md"
+                            initial="hidden"
+                            animate={slide2InView ? "visible" : "hidden"}
+                            variants={tagContainerVariants}
+                        >
+                            {['ecosystem balance', 'biodiversity', 'biological integrity', 'natural equilibrium'].map((tag, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full px-4 py-2 md:px-6 md:py-3 border border-white/30 flex items-center gap-2"
+                                    variants={tagVariants}
+                                >
+                                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span className="text-white text-xs md:text-sm font-inter font-[300]">{tag}</span>
+                                </motion.div>
+                            ))}
+                        </motion.div>
 
-                        {/* Text Content - Right Side, Above Bottom */}
-                        <div className="absolute bottom-32 right-20 text-right max-w-2xl px-4">
-                            <h2 className="text-5xl md:text-6xl font-medium text-white mb-6 font-inter">
+                        {/* Text Content - Right Side */}
+                        <motion.div
+                            className="absolute md:bottom-16 bottom-[35%] right-4 text-right max-w-xs md:max-w-2xl px-2 md:bottom-32 md:right-20 md:px-4"
+                            initial="hidden"
+                            animate={slide2InView ? "visible" : "hidden"}
+                            variants={containerVariants}
+                        >
+                            <motion.h2
+                                className="text-2xl md:text-5xl lg:text-6xl font-medium text-white mb-3 md:mb-6 font-inter"
+                                variants={itemVariants}
+                            >
                                 Technical analysis <br /> of purity
-                            </h2>
-                            <p className="text-lg md:text-xl text-white/90 leading-">
+                            </motion.h2>
+                            <motion.p
+                                className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed"
+                                variants={itemVariants}
+                            >
                                 Purity is examined across layers, from surface to depth, revealing how clean systems sustain structure, life, and equilibrium.
-                            </p>
-                        </div>
+                            </motion.p>
+                        </motion.div>
                     </div>
 
-                    {/* Image 3 - Text at right side, lower-middle area */}
-                    <div className="relative w-screen h-screen flex-shrink-0">
+                    {/* Slide 3 */}
+                    <div ref={slide3Ref} className="relative w-screen h-screen flex-shrink-0">
                         <img
                             src={banner3}
                             alt="Banner 3"
@@ -157,82 +254,67 @@ const Banner = () => {
                         <div className="absolute inset-0 bg-black/20"></div>
 
                         {/* Text Items with Green Dots - Bottom Left */}
-                        <div className="absolute bottom-24 left-20 flex flex-col gap-6 max-w-2xl">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                                    <div className="w-3 h-3 bg-[#0F9200] rounded-full"></div>
+                        <motion.div
+                            className="absolute bottom-12 left-4 flex flex-col gap-4 max-w-xs md:bottom-24 md:left-20 md:gap-6 md:max-w-2xl"
+                            initial="hidden"
+                            animate={slide3InView ? "visible" : "hidden"}
+                            variants={pointsContainerVariants}
+                        >
+                            <motion.div className="flex items-start gap-4" variants={cardVariants}>
+                                <div className="md:w-12 md:h-12 w-8 h-8 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
+                                    <div className="md:w-3 md:h-3 w-2 h-2 bg-[#0F9200] rounded-full"></div>
                                 </div>
-                                <p className="text-white text-lg font-inter font-[300] leading-tight">
+                                <p className="text-white text-sm md:text-lg font-inter font-[300] leading-tight">
                                     Balanced systems sustain<br /> living ecosystems.
                                 </p>
-                            </div>
+                            </motion.div>
 
-                            <div className="flex items-start gap-8">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                                        <div className="w-3 h-3 bg-[#0F9200] rounded-full"></div>
+                            <div className="flex items-start gap-4 md:gap-8">
+                                <motion.div className="flex items-start gap-4" variants={cardVariants}>
+                                    <div className="md:w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
+                                        <div className="md:w-3 md:h-3 w-2 h-2 bg-[#0F9200] rounded-full"></div>
                                     </div>
-                                    <p className="text-white text-lg font-inter font-[300] leading-tight">
+                                    <p className="text-white text-sm md:text-lg font-inter font-[300] leading-tight">
                                         Life thrives through <br />natural balance.
                                     </p>
-                                </div>
+                                </motion.div>
 
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                                        <div className="w-3 h-3 bg-[#0F9200] rounded-full"></div>
+                                <motion.div className="flex items-start gap-4" variants={cardVariants}>
+                                    <div className="md:w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
+                                        <div className="md:w-3 md:h-3 w-2 h-2 bg-[#0F9200] rounded-full"></div>
                                     </div>
-                                    <p className="text-white text-lg font-inter font-[300] leading-tight">
+                                    <p className="text-white text-sm md:text-lg font-inter font-[300] leading-tight">
                                         Growth emerges from <br />ecological harmony.
                                     </p>
-                                </div>
+                                </motion.div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* Text Content - Right Side, Lower-Middle */}
-                        <div className="absolute top-[27%] right-20 text-right max-w-2xl px-4">
-                            <h2 className="text-5xl md:text-6xl font-medium text-white mb-6 leading- font-inter">
+                        {/* Text Content - Right Side */}
+                        <motion.div
+                            className="absolute top-[35%] right-4 text-right max-w-xs md:max-w-2xl px-2 md:top-[27%] md:right-20 md:px-4"
+                            initial="hidden"
+                            animate={slide3InView ? "visible" : "hidden"}
+                            variants={containerVariants}
+                        >
+                            <motion.h2
+                                className="text-2xl md:text-5xl lg:text-6xl font-medium text-white mb-3 md:mb-6 leading-tight font-inter"
+                                variants={itemVariants}
+                            >
                                 Life and growth <br /> through natural balance
-                            </h2>
-                            <p className="text-lg md:text-xl text-white/90 leading-">
+                            </motion.h2>
+                            <motion.p
+                                className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed"
+                                variants={itemVariants}
+                            >
                                 Natural balance sustains life, allowing ecosystems to grow through the interconnected rhythm of land, water, and biodiversity.
-                            </p>
-                        </div>
+                            </motion.p>
+                        </motion.div>
                     </div>
                 </div>
             </div>
-
-            {/* section 2*/}
-            <section ref={section2Ref} className="absolute top-0 left-0 w-full min-h-screen bg-white py-20 px-6 z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.3)] flex flex-col  items-center   justify-center">
-                <div className="max-w-7xl mx-auto text-center   ">
-                    {/* Badge */}
-                    <div className="flex justify-center mb-8">
-                        <span className="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium">
-                            Who We Are
-                        </span>
-                    </div>
-
-                    {/* Main Heading */}
-                    <h1 className="text-[2.8vw] font-normal leading-tight mb-8 text-gray-900">
-                        SarvSustain empowers organizations to operate responsibly, <br />
-                        transparently, and sustainably. From our base in Dubai, we combine <br />
-                        global best practice with regional insight to turn ESG and GHG <br />
-                        ambitions into measurable results.
-                    </h1>
-
-                    {/* Learn More Button */}
-                    <button className="border-2 border-green-600 text-green-600 px-10 py-2 rounded-full font-medium hover:bg-green-50 transition-colors">
-                        Learn More
-                    </button>
-                </div>
-            </section>
-
-
         </div>
     );
 };
 
 export default Banner;
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-

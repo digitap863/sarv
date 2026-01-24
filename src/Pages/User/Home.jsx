@@ -14,7 +14,7 @@ function Home() {
     <>
         <Navbar />
         <Banner/>
-        {/* <About /> */}
+        <About />
         <CoreServices />
         <Footer />
     </>
