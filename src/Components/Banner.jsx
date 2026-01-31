@@ -1,323 +1,237 @@
-import { motion, useInView } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+const cloud1 = '/images/cloud1.png';
+const cloud2 = '/images/cloud2.png';
 
-const banner1 = '/images/banner1.png';
-const banner2 = '/images/banner2.png';
-const banner3 = '/images/banner3.png';
-const dwnarrw = '/images/dwnarrw.svg';
-const plant = '/images/plant.png';
-
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
-
-// Animation variants
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.9,
-            delayChildren: 0.2
-        }
+const cloudAnimation = `
+  @keyframes floatCloud {
+    0% {
+      transform: translateX(-100%);
     }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.4,
-            ease: "easeOut"
-        }
+    100% {
+      transform: translateX(100vw);
     }
-};
+  }
+`;
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.6,
-            ease: "easeOut"
-        }
+const cloudHalfAnimation = `
+  @keyframes floatCloudHalf {
+    0% {
+      transform: translateX(-40%);
     }
-};
-
-const tagContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.3
-        }
+    100% {
+      transform: translateX(40vw);
     }
-};
-
-const tagVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 20 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: "easeOut"
-        }
-    }
-};
-
-const pointsContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.3
-        }
-    }
-};
+  }
+`;
 
 const Banner = () => {
-    const mainWrapperRef = useRef(null);
-    const horizontalRef = useRef(null);
-
-    // Refs for each slide to detect when in view
-    const slide1Ref = useRef(null);
-    const slide2Ref = useRef(null);
-    const slide3Ref = useRef(null);
-
-    // useInView hooks for each slide
-    const slide1InView = useInView(slide1Ref, { once: true, amount: 0.5 });
-    const slide2InView = useInView(slide2Ref, { once: true, amount: 0.3, margin: "0px -50% 0px 0px" });
-    const slide3InView = useInView(slide3Ref, { once: true, amount: 0.3, margin: "0px -50% 0px 0px" });
+    const videoRef = useRef(null);
 
     useEffect(() => {
-        const wrapper = mainWrapperRef.current;
-        const horizontal = horizontalRef.current;
-
-        if (!wrapper || !horizontal) return;
-
-        const scrollDistance = horizontal.scrollWidth - window.innerWidth;
-
-        // Responsive scrub value - faster on mobile, slower on desktop
-        const isMobile = window.innerWidth < 768;
-        const scrubValue = isMobile ? 1.5 : 4;
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: wrapper,
-                start: "top top",
-                end: () => `+=${scrollDistance + 1000}`,
-                pin: true,
-                scrub: scrubValue,
-                invalidateOnRefresh: true,
-                markers: false,
-            }
-        });
-
-        tl.to(horizontal, {
-            x: -scrollDistance,
-            ease: "none"
-        });
-
-        return () => {
-            if (tl && tl.scrollTrigger) {
-                tl.scrollTrigger.kill();
-            }
-            if (tl) {
-                tl.kill();
-            }
-        };
+        // Ensure video plays on load
+        if (videoRef.current) {
+            videoRef.current.play().catch(error => {
+                console.log("Video autoplay was prevented:", error);
+            });
+        }
     }, []);
 
-
-
     return (
-        <div ref={mainWrapperRef} className="relative overflow-hidden">
-            {/* section1 */}
-            <div className="relative w-full h-screen overflow-hidden z-0">
-                {/* Down Arrow - Fixed Position */}
-                <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-0" onClick={() => document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })}>
-                    <img src={dwnarrw} alt="Scroll Down" className="w-9 h-11 transition-all duration-300 cursor-pointer hover:translate-y-2" />
-                    <p className="text-white font-normal text-sm">Click to see Services</p>
-                </div>
-
-                {/* Horizontal scrolling container */}
-                <div ref={horizontalRef} className="flex flex-row h-full w-[300vw]">
-                    {/* Slide 1 */}
-                    <div ref={slide1Ref} className="relative w-screen h-screen flex-shrink-0">
-                        <img
-                            src={banner1}
-                            alt="Banner 1"
-                            className="w-full h-full object-cover bottom-20"
-                        />
-                        <div className="absolute inset-0 bg-black/20"></div>
-
-                        {/* Plant Card - Bottom Left */}
-                        <motion.div
-                            className="absolute bottom-8 left-4 w-72 md:bottom-16 md:left-20 md:w-80"
-                            initial="hidden"
-                            animate={slide1InView ? "visible" : "hidden"}
-                            variants={cardVariants}
-                        >
-                            <div className="bg-gradient-to-r from-white/30 to-white/10 backdrop-blur-[1.5px] rounded-2xl md:rounded-3xl p-4 md:p-6 border border-white/30">
-                                <div className="w-10 h-10 bg-green-600 rounded-2xl flex items-center justify-center mb-6">
-                                    <img src={plant} alt="Plant Icon" className="w-10 h-10" />
-                                </div>
-                                <p className="text-white text-xs md:text-sm leading-relaxed font-inter font-[300]">
-                                    Long before forests rise and waters flow, healthy soil builds the foundation—holding nutrients, life, and the promise of sustainability.
-                                </p>
-                            </div>
-                        </motion.div>
-
-                        {/* Text Content - Bottom Right */}
-                        <motion.div
-                            className="absolute md:bottom-8 bottom-[35%] right-4 text-right max-w-xs md:max-w-2xl px-2 md:bottom-16 md:right-20 md:px-4"
-                            initial="hidden"
-                            animate={slide1InView ? "visible" : "hidden"}
-                            variants={containerVariants}
-                        >
-                            <motion.h2
-                                className="text-2xl md:text-5xl lg:text-6xl font-medium text-white mb-3 md:mb-6 leading-tight font-inter"
-                                variants={itemVariants}
-                            >
-                                Healthy soil as the <br /> Supportive Base
-                            </motion.h2>
-                            <motion.p
-                                className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed"
-                                variants={itemVariants}
-                            >
-                                Everything strong starts below the surface. Healthy soil supports life silently, creating the conditions for growth, resilience, and renewal.
-                            </motion.p>
-                        </motion.div>
-                    </div>
-
-                    {/* Slide 2 */}
-                    <div ref={slide2Ref} className="relative w-screen h-screen flex-shrink-0">
-                        <img
-                            src={banner2}
-                            alt="Banner 2"
-                            className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/20"></div>
-
-                        {/* Keyword Tags - Bottom Left */}
-                        <motion.div
-                            className="absolute bottom-8 left-4 flex flex-wrap gap-2 max-w-xs md:bottom-16 md:left-20 md:gap-3 md:max-w-md"
-                            initial="hidden"
-                            animate={slide2InView ? "visible" : "hidden"}
-                            variants={tagContainerVariants}
-                        >
-                            {['ecosystem balance', 'biodiversity', 'biological integrity', 'natural equilibrium'].map((tag, index) => (
-                                <motion.div
-                                    key={index}
-                                    className="bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full px-4 py-2 md:px-6 md:py-3 border border-white/30 flex items-center gap-2"
-                                    variants={tagVariants}
-                                >
-                                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                    <span className="text-white text-xs md:text-sm font-inter font-[300]">{tag}</span>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-
-                        {/* Text Content - Right Side */}
-                        <motion.div
-                            className="absolute md:bottom-16 bottom-[35%] right-4 text-right max-w-xs md:max-w-2xl px-2 md:bottom-32 md:right-20 md:px-4"
-                            initial="hidden"
-                            animate={slide2InView ? "visible" : "hidden"}
-                            variants={containerVariants}
-                        >
-                            <motion.h2
-                                className="text-2xl md:text-5xl lg:text-6xl font-medium text-white mb-3 md:mb-6 font-inter"
-                                variants={itemVariants}
-                            >
-                                Technical analysis <br /> of purity
-                            </motion.h2>
-                            <motion.p
-                                className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed"
-                                variants={itemVariants}
-                            >
-                                Purity is examined across layers, from surface to depth, revealing how clean systems sustain structure, life, and equilibrium.
-                            </motion.p>
-                        </motion.div>
-                    </div>
-
-                    {/* Slide 3 */}
-                    <div ref={slide3Ref} className="relative w-screen h-screen flex-shrink-0">
-                        <img
-                            src={banner3}
-                            alt="Banner 3"
-                            className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/20"></div>
-
-                        {/* Text Items with Green Dots - Bottom Left */}
-                        <motion.div
-                            className="absolute bottom-12 left-4 flex flex-col gap-4 max-w-xs md:bottom-24 md:left-20 md:gap-6 md:max-w-2xl"
-                            initial="hidden"
-                            animate={slide3InView ? "visible" : "hidden"}
-                            variants={pointsContainerVariants}
-                        >
-                            <motion.div className="flex items-start gap-4" variants={cardVariants}>
-                                <div className="md:w-12 md:h-12 w-8 h-8 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                                    <div className="md:w-3 md:h-3 w-2 h-2 bg-[#0F9200] rounded-full"></div>
-                                </div>
-                                <p className="text-white text-sm md:text-lg font-inter font-[300] leading-tight">
-                                    Balanced systems sustain<br /> living ecosystems.
-                                </p>
-                            </motion.div>
-
-                            <div className="flex items-start gap-4 md:gap-8">
-                                <motion.div className="flex items-start gap-4" variants={cardVariants}>
-                                    <div className="md:w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                                        <div className="md:w-3 md:h-3 w-2 h-2 bg-[#0F9200] rounded-full"></div>
-                                    </div>
-                                    <p className="text-white text-sm md:text-lg font-inter font-[300] leading-tight">
-                                        Life thrives through <br />natural balance.
-                                    </p>
-                                </motion.div>
-
-                                <motion.div className="flex items-start gap-4" variants={cardVariants}>
-                                    <div className="md:w-12 h-12 bg-gradient-to-r from-white/30 to-transparent backdrop-blur-[2px] rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                                        <div className="md:w-3 md:h-3 w-2 h-2 bg-[#0F9200] rounded-full"></div>
-                                    </div>
-                                    <p className="text-white text-sm md:text-lg font-inter font-[300] leading-tight">
-                                        Growth emerges from <br />ecological harmony.
-                                    </p>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-
-                        {/* Text Content - Right Side */}
-                        <motion.div
-                            className="absolute top-[35%] right-4 text-right max-w-xs md:max-w-2xl px-2 md:top-[27%] md:right-20 md:px-4"
-                            initial="hidden"
-                            animate={slide3InView ? "visible" : "hidden"}
-                            variants={containerVariants}
-                        >
-                            <motion.h2
-                                className="text-2xl md:text-5xl lg:text-6xl font-medium text-white mb-3 md:mb-6 leading-tight font-inter"
-                                variants={itemVariants}
-                            >
-                                Life and growth <br /> through natural balance
-                            </motion.h2>
-                            <motion.p
-                                className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed"
-                                variants={itemVariants}
-                            >
-                                Natural balance sustains life, allowing ecosystems to grow through the interconnected rhythm of land, water, and biodiversity.
-                            </motion.p>
-                        </motion.div>
-                    </div>
-                </div>
+        <>
+        <style>{cloudAnimation}</style>
+        <style>{cloudHalfAnimation}</style>
+        <section className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center">
+            {/* Video Background */}
+            <div className="absolute top-0 left-0 w-full h-full z-0">
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover object-center"
+                >
+                    <source src="/videos/heroear.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                {/* Dark overlay for better text readability */}
+                {/* <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/85 via-white/60 via-40% to-white/10"></div> */}
             </div>
-        </div>
+
+                <img src={cloud1} alt="" className="hidden lg:block absolute -top-10 left-0 w-auto h-[30vh] z-10" style={{ animation: 'floatCloud 60s linear infinite' }} />
+                <img src={cloud2} alt="" className="hidden lg:block absolute -bottom-10 left-0 w-auto h-[30vh] z-10" style={{ animation: 'floatCloud 80s linear infinite', animationDelay: '1s' }} />
+                <img src={cloud1} alt="" className="hidden lg:block absolute top-56 -left-[13%] w-auto h-[30vh] z-10" style={{ animation: 'floatCloudHalf 80s linear infinite', animationDelay: '2s' }} />
+
+
+
+
+            {/* Floating Cloud Decorations */}
+            <motion.img
+                src={cloud1}
+                alt="Cloud decoration"
+                className="absolute top-[5%] -left-[5%] w-[400px] opacity-80 z-[2] pointer-events-none blur-[1px] lg:w-[300px] lg:top-[2%] md:w-[200px] md:top-0 md:-left-[20%]"
+                initial={{ opacity: 0, x: -100 }}
+                animate={{
+                    opacity: 0.8,
+                    x: 0,
+                    y: [0, -15, 0]
+                }}
+                transition={{
+                    opacity: { duration: 1.5 },
+                    x: { duration: 1.5 },
+                    y: {
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }
+                }}
+            />
+
+            <motion.img
+                src="/images/cloud2.png"
+                alt="Cloud decoration"
+                className="absolute top-[15%] -right-[10%] w-[500px] opacity-70 z-[2] pointer-events-none blur-[1px] lg:w-[350px] md:w-[250px] md:top-[10%] md:-right-[20%]"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{
+                    opacity: 0.7,
+                    x: 0,
+                    y: [0, 20, 0]
+                }}
+                transition={{
+                    opacity: { duration: 1.5, delay: 0.3 },
+                    x: { duration: 1.5, delay: 0.3 },
+                    y: {
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.5
+                    }
+                }}
+            />
+
+            <motion.img
+                src="/images/cloud1.png"
+                alt="Cloud decoration"
+                className="absolute bottom-[20%] left-[10%] w-[350px] opacity-60 z-[2] pointer-events-none blur-[1px] lg:w-[250px] md:w-[180px] md:bottom-[25%] md:-left-[10%]"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{
+                    opacity: 0.6,
+                    y: [0, 10, 0]
+                }}
+                transition={{
+                    opacity: { duration: 1.5, delay: 0.5 },
+                    y: {
+                        duration: 7,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }
+                }}
+            />
+
+            <motion.img
+                src="/images/cloud2.png"
+                alt="Cloud decoration"
+                className="absolute bottom-[10%] right-[5%] w-[300px] opacity-50 z-[2] pointer-events-none blur-[1px] lg:w-[200px] md:w-[150px] md:bottom-[15%] md:-right-[10%]"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{
+                    opacity: 0.5,
+                    x: 0,
+                    y: [0, -12, 0]
+                }}
+                transition={{
+                    opacity: { duration: 1.5, delay: 0.7 },
+                    x: { duration: 1.5, delay: 0.7 },
+                    y: {
+                        duration: 9,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }
+                }}
+            />
+
+            {/* Content */}
+            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-[60px] flex items-center lg:px-10 md:px-6 md:pt-[100px] md:items-start sm:px-4 sm:pt-[120px]">
+                <motion.div
+                    className="max-w-[600px] md:max-w-full"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                    {/* Subtitle Badge */}
+                    <motion.div
+                        className="inline-block bg-white py-2.5 px-6 rounded-full mb-[30px] border-[1px] border-black/20 md:py-2 md:px-[18px] md:mb-5"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                    >
+                        <span className="text-[#2A652D] text-base font-medium  uppercase md:text-[14px] md:tracking-[1.5px] sm:text-[12px] font-philosopher">
+                            ENVIRONMENTAL CONSULTING
+                        </span>
+                    </motion.div>
+
+                    {/* Main Heading */}
+                    <motion.h1
+                        className="m-0 mb-10 leading-[1.1] md:mb-[30px] font-philosopher "
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.7 }}
+                    >
+                        <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(48px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
+                            FOR THE
+                        </span>
+                        <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(48px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
+                            NEXT
+                        </span>
+                        <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(36px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
+                            GENERATION
+                        </span>
+                    </motion.h1>
+
+                    {/* CTA Button */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 1 }}
+                    >
+                        <Link
+                            to="/contact"
+                            className="inline-flex items-center gap-3 bg-gradient-to-br from-[#205B23] to-[#257C88] text-white py-4 px-14 rounded-xl text-base font-semibold no-underline transition-all duration-300 shadow-[0_4px_4px_rgba(0,0,0,0.25)] hover:-translate-y-[3px] hover:shadow-[0_4px_4px_rgba(0,0,0,0.50)] hover:from-[#2d7a50] hover:to-[#3d9a60] group md:py-3.5 md:px-7 md:text-sm"
+                        >
+                            <span>Start Your Journey</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-[5px]"
+                            >
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </Link>
+                    </motion.div>
+                </motion.div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 md:bottom-[30px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5, duration: 0.8 }}
+            >
+                <motion.div
+                    className="w-[30px] h-[50px] border-2 border-[rgba(26,90,60,0.5)] rounded-[20px] flex justify-center pt-2 md:w-6 md:h-10"
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    <div className="w-1 h-2.5 bg-gradient-to-br from-[#1a5a3c] to-[#2d7a50] rounded-sm"></div>
+                </motion.div>
+            </motion.div>
+        </section>
+        </>
     );
 };
 

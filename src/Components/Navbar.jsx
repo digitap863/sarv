@@ -22,10 +22,12 @@ const Navbar = () => {
     };
 
     const navItems = [
+        { href: '#home', label: 'Home' },
         { href: '#about', label: 'About Us' },
-        { href: '#solutions', label: 'Solutions' },
+        { href: '#services', label: 'Service' },
+
+        // { href: '#blog', label: 'Blog' },
         // { href: '#mission', label: 'Mission & Vision' },
-        { href: '#contact', label: 'Talk to Us' }
     ];
 
     return (
@@ -74,7 +76,7 @@ const Navbar = () => {
                         {/* Desktop - Centered Navigation Items */}
                         <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2">
                             <motion.ul
-                                className="flex items-center gap-8 bg-[#848484]/70 backdrop-blur-md rounded-full px-10 py-3 border border-white"
+                                className="flex items-center gap-12 bg- rounded-xl px-14 py-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] border border-[#000]/20"
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{
@@ -96,7 +98,7 @@ const Navbar = () => {
                                     >
                                         <motion.a
                                             href={item.href}
-                                            className="text-white hover:text-teal-300 transition-colors font-medium relative inline-block"
+                                            className="text-[#1a472a] hover:text-[#2d7a50] transition-colors font-semibold text-sm tracking-wider uppercase relative inline-block"
                                             whileHover={{
                                                 scale: 1.05,
                                                 y: -2
@@ -106,7 +108,7 @@ const Navbar = () => {
                                         >
                                             {item.label}
                                             <motion.span
-                                                className="absolute bottom-0 left-0 w-full h-0.5 bg-teal-300 origin-left"
+                                                className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#1a472a] origin-left"
                                                 initial={{ scaleX: 0 }}
                                                 whileHover={{ scaleX: 1 }}
                                                 transition={{ duration: 0.3 }}
@@ -153,6 +155,19 @@ const Navbar = () => {
 
                         {/* Spacer for layout balance on desktop */}
                         <div className="hidden lg:block w-48"></div>
+                        {/* contactus green button */}
+                        <div className="lg:block hidden">
+                            <a
+                                href="#contact"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="bg-[#408A6D] text-white px-6 py-2 rounded-xl uppercase font-medium transition-colors hover:bg-green-700 inline-block"
+                            >
+                                Contact Us
+                            </a>
+                        </div>
                     </div>
                 </motion.div>
             </motion.nav>
@@ -234,6 +249,28 @@ const Navbar = () => {
                                         </motion.li>
                                     ))}
                                 </motion.ul>
+
+                                {/* Contact Us Button - Mobile */}
+                                <motion.div
+                                    className="mt-8"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                >
+                                    <a
+                                        href="#contact"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setIsOpen(false);
+                                            setTimeout(() => {
+                                                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                            }, 300);
+                                        }}
+                                        className="bg-[#408A6D] text-white px-8 py-3 rounded-xl uppercase font-medium transition-colors hover:bg-green-700 inline-block text-center w-full"
+                                    >
+                                        Contact Us
+                                    </a>
+                                </motion.div>
                             </div>
                         </motion.div>
                     )}

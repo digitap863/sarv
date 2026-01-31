@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 .font-inter {
   font-family: 'Inter Tight', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+.font-philosopher {
+  font-family: 'Philosopher', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+} 
 
 body {
   font-family: 'Inter Tight', sans-serif;
