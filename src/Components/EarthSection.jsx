@@ -27,7 +27,7 @@ function EarthSection() {
             <style>{cloudAnimation}</style>
             <section
                 ref={sectionRef}
-                className="relative w-full min-h-[500px] md:min-h-[800px]  overflow-hidden"
+                className="relative w-full min-h-[500px] md:min-h-[800px] overflow-hidden"
             >
 
                 <motion.img
@@ -39,22 +39,19 @@ function EarthSection() {
                     transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
                 />
 
+                {/* White Gradient Overlay - Top and Bottom to Transparent Middle */}
+                <div
+                    className="absolute inset-0 z-[5] pointer-events-none"
+                    style={{
+                        background: 'linear-gradient(to bottom, #FBFCFB 0%, rgba(251,252,251,0.5) 5%, rgba(251,252,251,0) 10%, rgba(251,252,251,0) 90%, rgba(251,252,251,0.3) 95%, #FBFCFB 100%)'
+                    }}
+                />
 
-                <div className='absolute -top-10 left-0 z-10 bg-[#FBFCFB]  h-20 w-full blur-sm' />
-                <div className='absolute -top-10 -left-10 z-10 bg-[#FBFCFB]  h-20 w-40 blur-sm' />
-                <div className='absolute -top-10 -right-10 z-10 bg-[#FBFCFB]  h-20 w-40 blur-sm' />
-
-                <div className='absolute -bottom-10 left-0 z-10 bg-[#FBFCFB]  h-20 w-full blur-sm' />
-                <div className='absolute -bottom-10 -left-10 z-10 bg-[#FBFCFB]  h-20 w-40 blur-sm' />
-                <div className='absolute -bottom-10 -right-10 z-10 bg-[#FBFCFB]  h-20 w-40 blur-sm' />
-
-
-
-
+                {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img
                         src={Soil}
-                        alt="Aerial view with clouds"
+                        alt="Soil/Earth background"
                         className="w-full h-full object-cover"
                     />
                     {/* Subtle overlay for better text readability */}

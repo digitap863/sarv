@@ -18,6 +18,7 @@ const servicesData = [
         image: serviceImages.service1,
         title: "ESG REPORTING & STRATEGY",
         features: [
+            "Risk mitigation tool to protect an organisation's value, reputation and operations",
             "Materiality Mapping & Stakeholder Engagement",
             "Maturity Assessments & Transformation Roadmaps",
             "ESG Risk Integration (ISO 31000)"
