@@ -1,5 +1,5 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 
 // Public folder assets
 const logofooter = '/images/logofooter.png';
@@ -32,6 +32,14 @@ const itemVariants = {
 export default function Footer() {
     const footerRef = useRef(null);
     const isInView = useInView(footerRef, { once: true, amount: 0.2 });
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedResource, setSelectedResource] = useState('');
+
+    const handleResourceClick = (e, resourceName) => {
+        e.preventDefault();
+        setSelectedResource(resourceName);
+        setModalOpen(true);
+    };
 
     return (
         <footer
@@ -110,25 +118,21 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li>
-                                <a href="/about" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    About
+                                <a href="#about" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                    About Us
                                 </a>
                             </li>
                             <li>
-                                <a href="/mission" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a href="#mission" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
                                     Mission
                                 </a>
                             </li>
                             <li>
-                                <a href="/services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
                                     Services
                                 </a>
                             </li>
-                            <li>
-                                <a href="/about-us" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    About Us
-                                </a>
-                            </li>
+
                         </ul>
                     </motion.div>
 
@@ -140,22 +144,22 @@ export default function Footer() {
                         <h3 className="text-white font-semibold text-base mb-5">Solutions</h3>
                         <ul className="space-y-3">
                             <li>
-                                <a href="/solutions/esg" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
                                     ESG
                                 </a>
                             </li>
                             <li>
-                                <a href="/solutions/ghg" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
                                     GHG
                                 </a>
                             </li>
                             <li>
-                                <a href="/solutions/software" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
                                     Software
                                 </a>
                             </li>
                             <li>
-                                <a href="/solutions/regulatory-compliance" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
                                     Regulatory Compliance
                                 </a>
                             </li>
@@ -170,22 +174,38 @@ export default function Footer() {
                         <h3 className="text-white font-semibold text-base mb-5">Resources</h3>
                         <ul className="space-y-3">
                             <li>
-                                <a href="/blog" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a
+                                    href="#"
+                                    onClick={(e) => handleResourceClick(e, 'Blog')}
+                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
+                                >
                                     Blog
                                 </a>
                             </li>
                             <li>
-                                <a href="/case-studies" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a
+                                    href="#"
+                                    onClick={(e) => handleResourceClick(e, 'Case Studies')}
+                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
+                                >
                                     Case Studies
                                 </a>
                             </li>
                             <li>
-                                <a href="/documentation" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a
+                                    href="#"
+                                    onClick={(e) => handleResourceClick(e, 'Documentation')}
+                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
+                                >
                                     Documentation
                                 </a>
                             </li>
                             <li>
-                                <a href="/support" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
+                                <a
+                                    href="#"
+                                    onClick={(e) => handleResourceClick(e, 'Support')}
+                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
+                                >
                                     Support
                                 </a>
                             </li>
@@ -206,6 +226,122 @@ export default function Footer() {
                     </p>
                 </motion.div>
             </motion.div>
+
+            {/* Coming Soon Modal */}
+            <AnimatePresence>
+                {modalOpen && (
+                    <motion.div
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setModalOpen(false)}
+                    >
+                        {/* Backdrop */}
+                        <motion.div
+                            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        />
+
+                        {/* Modal Content */}
+                        <motion.div
+                            className="relative bg-gradient-to-br from-[#1a472a] via-[#205B23] to-[#257C88] rounded-2xl p-6 md:p-10 max-w-sm w-full text-center shadow-2xl overflow-hidden"
+                            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Decorative elements */}
+                            <div className="absolute -top-16 -right-16 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+                            <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+
+                            {/* Close Button */}
+                            <motion.button
+                                className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setModalOpen(false)}
+                            >
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </motion.button>
+
+                            {/* Icon */}
+                            <motion.div
+                                className="mb-5"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.2, type: "spring" }}
+                            >
+                                <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
+                                    <span className="text-3xl">📚</span>
+                                </div>
+                            </motion.div>
+
+                            {/* Title */}
+                            <motion.h3
+                                className="text-white text-2xl font-bold mb-2 font-philosopher"
+                                initial={{ y: 15, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                Coming Soon!
+                            </motion.h3>
+
+                            {/* Resource Name */}
+                            <motion.p
+                                className="text-[#3d9a7a] text-sm font-medium uppercase tracking-wider mb-3"
+                                initial={{ y: 15, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.35 }}
+                            >
+                                {selectedResource}
+                            </motion.p>
+
+                            {/* Description */}
+                            <motion.p
+                                className="text-white/80 text-sm mb-5 leading-relaxed"
+                                initial={{ y: 15, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                            >
+                                We're working on bringing you valuable {selectedResource.toLowerCase()} content. Stay tuned!
+                            </motion.p>
+
+                            {/* Contact */}
+                            <motion.a
+                                href="mailto:info@sarvsustain.com"
+                                className="inline-flex items-center gap-2 text-white/70 text-xs hover:text-white transition-colors"
+                                initial={{ y: 15, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.45 }}
+                            >
+                                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                info@sarvsustain.com
+                            </motion.a>
+
+                            {/* Button */}
+                            <motion.button
+                                className="mt-5 bg-white text-[#1a472a] px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-white/90 transition-colors w-full"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => setModalOpen(false)}
+                                initial={{ y: 15, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                Got it!
+                            </motion.button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </footer>
     );
 }

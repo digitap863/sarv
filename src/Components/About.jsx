@@ -229,7 +229,7 @@ export default function About() {
                     <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
                       <img src={ico5} alt="" className='w-auto h-auto' />
                     </div>
-                    <span className="text-[#1a472a] text-sm md:text-base font-medium">Risk Mitigation & Assessment</span>
+                    <span className="text-[#1a472a] text-sm md:text-base font-medium">Risk Assessment & Mitigation</span>
                   </motion.div>
                 </div>
               </motion.div>

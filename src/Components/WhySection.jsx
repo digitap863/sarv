@@ -53,6 +53,7 @@ function WhySection() {
         <style>{cloudAnimation}</style>
         <section
             ref={sectionRef}
+            id="mission"
             className="relative w-full min-h-[600px] md:min-h-[600px] overflow-hidden bg-gradient-to-b from-[#FBFCFB] to-[#FBFCFB]"
         >
             {/* Background Image - Forest/Trees */}

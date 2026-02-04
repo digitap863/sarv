@@ -41,7 +41,9 @@ const Banner = () => {
         <>
             <style>{cloudAnimation}</style>
             <style>{cloudHalfAnimation}</style>
-            <section className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center">
+            <section
+            id="home"
+             className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center">
                 {/* Video Background */}
                 <div className="absolute top-0 left-0 w-full h-full z-0">
                     <video
