@@ -16,12 +16,11 @@ const servicesData = [
     {
         id: 1,
         image: serviceImages.service1,
-        title: "ESG REPORTING & STRATEGY",
+        title: "ESG REPORTING & STRATEGY DEVELOPMENT",
         features: [
-            "Risk mitigation tool to protect an organisation's value, reputation and operations",
             "Materiality Mapping & Stakeholder Engagement",
-            "Maturity Assessments & Transformation Roadmaps",
-            "ESG Risk Integration (ISO 31000)"
+            "Compliance Assessments & Transformation Roadmaps",
+            "ESG Risk Management And Target Setting"
         ]
     },
     {
@@ -30,28 +29,28 @@ const servicesData = [
         title: "GHG ACCOUNTING & CARBON ADVISORY",
         features: [
             "GHG Inventories (Scopes 1, 2, 3; GHG Protocol)",
-            "Net-Zero Pathways & Decarbonisation Modelling",
-            "Offsets, Credits & ISO 14068 (Carbon Neutrality) Alignment"
+            "Organisational And Product Carbon Footprints (ISO 14064, ISO 14067)",
+            "Net-Zero Pathways & Decarbonisation Modelling"
         ]
     },
     {
         id: 3,
         image: serviceImages.service3,
-        title: "TECHNOLOGY-DRIVEN SUSTAINABILITY",
+        title: "AIR & WATER QUALITY MONITORING & REGULATORY ADVISORY",
         features: [
-            "SaaS Platforms For ESG Data Capture & Reporting",
-            "Automation For GHG Accounting & Audit Trails",
-            "AI-Enabled Climate Risk Analytics & Dashboards"
+            "Ambient Air Quality Monitoring (ISO 4225, ISO 16000 Series)",
+            "Industrial Emissions & Effluent Compliance Assessments",
+            "UAE Environmental Laws & EU Air / Water Directives Alignment"
         ]
     },
     {
         id: 4,
         image: serviceImages.service4,
-        title: "ESG REPORTING & STRATEGY",
+        title: "TECHNOLOGY-DRIVEN SUSTAINABILITY",
         features: [
-            "Materiality Mapping & Stakeholder Engagement",
-            "Maturity Assessments & Transformation Roadmaps",
-            "ESG Risk Integration (ISO 31000)"
+            "SaaS Platforms For ESG Data Capture & Reporting",
+            "Automation For GHG Accounting & Audit Trails",
+            "AI-Enabled Climate Risk Analytics & Dashboards"
         ]
     },
     {
@@ -70,8 +69,8 @@ const servicesData = [
         title: "SUSTAINABILITY, ESG & NET-ZERO TRAINING & CAPABILITY BUILDING",
         features: [
             "Board & Executive ESG Awareness Programs",
-            "Net-Zero, Climate Risk & GHG Accounting Workshops",
-            "Sector-Specific ESG Regulatory Readiness Sessions"
+            "Net-Zero, Climate Risk & GHG Accounting Workshops For Organisations And Educational Institutions",
+            "Sector-Specific ESG Regulatory Readiness Sessions For Organisations"
         ]
     }
 ];
