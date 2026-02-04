@@ -112,22 +112,22 @@ function GreenSection() {
                     >
                         {/* Card Title */}
                         <h3 className="text-white text-xl md:text-2xl font-semibold mb-4">
-                            Lorem Ipsum
+                           Water Quality
                         </h3>
 
                         {/* Card List */}
                         <ul className="space-y-3">
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy t  is simply ext00</span>
+                                <span>Surface & groundwater quality monitoring</span>
                             </li>
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy t  is simply ext</span>
+                                <span>Effluent assessment and pollution prevention</span>
                             </li>
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy t  is simply ext</span>
+                                <span>Ensuring safe, clean, and sustainable water resources</span>
                             </li>
                         </ul>
                     </motion.div>

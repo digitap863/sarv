@@ -186,13 +186,13 @@ const Banner = () => {
                             transition={{ duration: 0.6, delay: 0.7 }}
                         >
                             <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(48px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
-                                FOR THE
+                                FOR SUSTAINABLE  
                             </span>
                             <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(48px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
-                                NEXT
+                               BUSINESS
                             </span>
                             <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(36px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
-                                GENERATION
+                                SOLUTIONS
                             </span>
                         </motion.h1>
 

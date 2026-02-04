@@ -83,27 +83,27 @@ export default function About() {
   return (
 
     <>
-            <style>{cloudAnimation}</style>
-            <style>{cloudAnimation2}</style>
+      <style>{cloudAnimation}</style>
+      <style>{cloudAnimation2}</style>
 
-    <section
-      ref={sectionRef}
-      id="about"
-      className="relative h-auto py-20 px-6 overflow-hidden"
-    >
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <motion.img
-          src={aboutImage}
-          alt="About background"
-          className="w-full h-full object-cover object-center"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
-        />
-        {/* White overlay for text readability */}
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/60"></div> */}
-      </div>
+      <section
+        ref={sectionRef}
+        id="about"
+        className="relative h-auto py-20 px-6 overflow-hidden"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <motion.img
+            src={aboutImage}
+            alt="About background"
+            className="w-full h-full object-cover object-center"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
+            transition={{ duration: 1.2, delay: 0.2 }}
+          />
+          {/* White overlay for text readability */}
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/60"></div> */}
+        </div>
 
       {/* Cloud Decorations */}
 
@@ -112,131 +112,131 @@ export default function About() {
                 <img src={cloud1} alt="" className="hidden lg:block absolute top-[45%] left-[0%] w-auto h-[30vh] " style={{ animation: 'floatCloud2 80s linear infinite', animationDelay: '15s' }} />
 
 
- 
-
-      <div className="max-w-7xl mx-auto relative ">
-        <div className=" gap-12 items-center min-h-[80vh]">
-          {/* Left Content */}
-          <motion.div
-            className="z-10"
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={containerVariants}
-          >
-            {/* Main Heading */}
-
-            <h1 className="text-[#1a472a] text-2xl  mb-3 leading-tight ">OUR PURPOSE</h1>
-            <motion.h2
-              className="text-[#1a472a] text-3xl md:text-4xl lg:text-5xl font-bold uppercase italic mb-10 leading-tight font-philosopher"
-              variants={itemVariants}
-            >
-              WE BELIEVE  IN Business DRIVEN BY PURPOSE <br />  AND GROWING WITH CARE
-            </motion.h2>
-
-            {/* Description Points */}
-            <motion.div className="space-y-2 mb-12 pl-3 pt-3 relative " variants={itemVariants}>
 
 
-
-              <motion.p
-                className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide capitalize "
-                variants={itemVariants}
-              >
-                Frameworks that emphasise long-term, responsible stewardship of both nature and <br /> society by choices of today
-              </motion.p>
-              <motion.p
-                className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide "
-                variants={itemVariants}
-              >
-                Workplaces And Organisations Rooted In Fairness, Diversity, And Human Well-Being.
-              </motion.p>
-              <motion.p
-                className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide "
-                variants={itemVariants}
-              >
-                Governance That Balances Risk, Responsibility And Long Term Value Creation.
-              </motion.p>
-
-            </motion.div>
-
-            {/* Mission Statement */}
+        <div className="max-w-7xl mx-auto relative ">
+          <div className=" gap-12 items-center min-h-[80vh]">
+            {/* Left Content */}
             <motion.div
-              className="mt-16"
-              variants={itemVariants}
+              className="z-10"
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={containerVariants}
             >
-              {/* Mission Heading */}
-              <h3 className="text-[#1a472a] text-2xl md:text-3xl font-bold uppercase mb-4 font-philosopher">
-                OUR MISSION
-              </h3>
+              {/* Main Heading */}
 
-              {/* Mission Subtitle */}
-              <p className="text-[#1a472a] text-base md:text-lg uppercase tracking-wide mb-8 font-medium">
-                OUR MISSION IS TO HELP ORGANIZATIONS TO<br />
-                DEVELOP AND IMPLEMENT—
-              </p>
+              <h1 className="text-[#1a472a] text-2xl  mb-3 leading-tight ">OUR PURPOSE</h1>
+              <motion.h2
+                className="text-[#1a472a] text-3xl md:text-4xl lg:text-5xl font-bold uppercase italic mb-10 leading-tight font-philosopher"
+                variants={itemVariants}
+              >
+                WE BELIEVE  IN Business DRIVEN BY PURPOSE <br />  AND GROWING WITH CARE
+              </motion.h2>
 
-              {/* Mission Items Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 max-w-4xl">
-                {/* Item 1 - Strategic Planning */}
-                <motion.div
-                  className="flex items-center gap-4"
+              {/* Description Points */}
+              <motion.div className="space-y-2 mb-12 pl-3 pt-3 relative " variants={itemVariants}>
+
+
+
+                <motion.p
+                  className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide capitalize "
                   variants={itemVariants}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
-                    <img src={ico1} alt="" className='w-auto h-auto' />
-                  </div>
-                  <span className="text-[#205B23] text-sm md:text-base font-medium">Strategic Planning & Integration</span>
-                </motion.div>
-
-                {/* Item 2 - Sustainability Performance */}
-                <motion.div
-                  className="flex items-center gap-4"
+                  Frameworks that emphasise long-term, responsible stewardship of both nature and <br /> society by choices of today
+                </motion.p>
+                <motion.p
+                  className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide "
                   variants={itemVariants}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
-                    <img src={ico2} alt="" className='w-auto h-auto' />
-                  </div>
-                  <span className="text-[#1a472a] text-sm md:text-base font-medium">Sustainability Performance Improvement</span>
-                </motion.div>
-
-                {/* Item 3 - Regulatory Compliance */}
-                <motion.div
-                  className="flex items-center gap-4"
+                  Workplaces And Organisations Rooted In Fairness, Diversity, And Human Well-Being.
+                </motion.p>
+                <motion.p
+                  className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide "
                   variants={itemVariants}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
-                    <img src={ico3} alt="" className='w-auto h-auto' />
-                  </div>
-                  <span className="text-[#1a472a] text-sm md:text-base font-medium">Regulatory Compliance & Reporting</span>
-                </motion.div>
+                  Governance That Balances Risk, Responsibility And Long Term Value Creation.
+                </motion.p>
 
-                {/* Item 4 - Enhanced Stakeholder Value */}
-                <motion.div
-                  className="flex items-center gap-4"
-                  variants={itemVariants}
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
-                    <img src={ico4} alt="" className='w-auto h-auto' />
-                  </div>
-                  <span className="text-[#1a472a] text-sm md:text-base font-medium">Enhanced Stakeholder Value</span>
-                </motion.div>
+              </motion.div>
 
-                {/* Item 5 - Risk Mitigation */}
-                <motion.div
-                  className="flex items-center gap-4"
-                  variants={itemVariants}
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
-                    <img src={ico5} alt="" className='w-auto h-auto' />
-                  </div>
-                  <span className="text-[#1a472a] text-sm md:text-base font-medium">Risk Mitigation & Assessment</span>
-                </motion.div>
-              </div>
+              {/* Mission Statement */}
+              <motion.div
+                className="mt-16"
+                variants={itemVariants}
+              >
+                {/* Mission Heading */}
+                <h3 className="text-[#1a472a] text-2xl md:text-3xl font-bold uppercase mb-4 font-philosopher">
+                  OUR MISSION
+                </h3>
+
+                {/* Mission Subtitle */}
+                <p className="text-[#1a472a] text-base md:text-lg uppercase tracking-wide mb-8 font-medium">
+                  OUR MISSION IS TO HELP ORGANIZATIONS TO<br />
+                  DEVELOP AND IMPLEMENT—
+                </p>
+
+                {/* Mission Items Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 max-w-4xl">
+                  {/* Item 1 - Strategic Planning */}
+                  <motion.div
+                    className="flex items-center gap-4"
+                    variants={itemVariants}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
+                      <img src={ico1} alt="" className='w-auto h-auto' />
+                    </div>
+                    <span className="text-[#205B23] text-sm md:text-base font-medium">Strategic Planning & Integration</span>
+                  </motion.div>
+
+                  {/* Item 2 - Sustainability Performance */}
+                  <motion.div
+                    className="flex items-center gap-4"
+                    variants={itemVariants}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
+                      <img src={ico2} alt="" className='w-auto h-auto' />
+                    </div>
+                    <span className="text-[#1a472a] text-sm md:text-base font-medium">Sustainability Performance Improvement</span>
+                  </motion.div>
+
+                  {/* Item 3 - Regulatory Compliance */}
+                  <motion.div
+                    className="flex items-center gap-4"
+                    variants={itemVariants}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
+                      <img src={ico3} alt="" className='w-auto h-auto' />
+                    </div>
+                    <span className="text-[#1a472a] text-sm md:text-base font-medium">Regulatory Compliance & Reporting</span>
+                  </motion.div>
+
+                  {/* Item 4 - Enhanced Stakeholder Value */}
+                  <motion.div
+                    className="flex items-center gap-4"
+                    variants={itemVariants}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
+                      <img src={ico4} alt="" className='w-auto h-auto' />
+                    </div>
+                    <span className="text-[#1a472a] text-sm md:text-base font-medium">Enhanced Stakeholder Value</span>
+                  </motion.div>
+
+                  {/* Item 5 - Risk Mitigation */}
+                  <motion.div
+                    className="flex items-center gap-4"
+                    variants={itemVariants}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-[#205B23]/20 flex items-center justify-center flex-shrink-0">
+                      <img src={ico5} alt="" className='w-auto h-auto' />
+                    </div>
+                    <span className="text-[#1a472a] text-sm md:text-base font-medium">Risk Mitigation & Assessment</span>
+                  </motion.div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }

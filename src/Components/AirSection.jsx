@@ -136,22 +136,22 @@ function AirSection() {
                     >
                         {/* Card Title */}
                         <h3 className="text-white text-xl md:text-2xl font-semibold mb-4">
-                            Lorem Ipsum
+                            Air Quality
                         </h3>
 
                         {/* Card List */}
                         <ul className="space-y-3">
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy text00</span>
+                                <span>Ambient air quality monitoring & emission analysis</span>
                             </li>
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy text</span>
+                                <span>Pollution control and regulatory compliance support</span>
                             </li>
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy text</span>
+                                <span>Protecting public health and climate systems</span>
                             </li>
                         </ul>
                     </motion.div>

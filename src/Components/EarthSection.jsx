@@ -122,22 +122,22 @@ function EarthSection() {
                     >
                         {/* Card Title */}
                         <h3 className="text-white text-xl md:text-2xl font-semibold mb-4">
-                            Lorem Ipsum
+                           Soil Quality
                         </h3>
 
                         {/* Card List */}
                         <ul className="space-y-3">
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy t  is simply ext00</span>
+                                <span>Soil contamination assessment & analysis</span>
                             </li>
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy t  is simply ext</span>
+                                <span>Risk evaluation for land use and development</span>
                             </li>
                             <li className="flex items-start gap-2 text-white/90 text-sm md:text-base">
                                 <span className="text-white mt-0.5">•</span>
-                                <span>Lorem Ipsum is simply dummy t  is simply ext</span>
+                                <span>Restoring soil health for sustainable ecosystems</span>
                             </li>
                         </ul>
                     </motion.div>
