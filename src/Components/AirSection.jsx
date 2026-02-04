@@ -129,7 +129,7 @@ function AirSection() {
 
                     {/* Right Card */}
                     <motion.div
-                        className=" bg-white/10 backdrop-blur-md border border-white/30 rounded-xl p-6 md:p-8 max-w-sm absolute bottom-[5%] right-[2%]"
+                        className=" bg-white/10 backdrop-blur-md border border-white/30 rounded-xl p-6 md:p-8 max-w-sm absolute bottom-[5%] -right-[1%]"
                         initial={{ opacity: 0, x: 50 }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                         transition={{ duration: 0.6, delay: 0.7 }}
