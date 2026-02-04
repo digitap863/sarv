@@ -91,7 +91,7 @@ function TechSection() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full min-h-[600px] md:min-h-[800px] overflow-hidden"
+            className="relative w-full min-h-[600px] md:min-h-[800px] overflow-hidden bg-white"
         >
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
@@ -148,8 +148,8 @@ function TechSection() {
                 </motion.div>
 
                 {/* Right Side - Tech Features (One by One Animation) */}
-                <div className="absolute -bottom-10 right-0 pointer-events-none">
-                   <img src={lines} alt="lines" className="w-full h-full object-contain pt-2" />
+                <div className="absolute bottom-0 right-0 pointer-events-none overflow-hidden">
+                    <img src={lines} alt="lines" className="w-full h-full object-contain" />
                 </div>
             </div>
 

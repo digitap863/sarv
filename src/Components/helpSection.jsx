@@ -45,7 +45,7 @@ export default function HelpSection() {
     return (
         <section
             ref={sectionRef}
-            className="h-auto flex items-center justify-center bg-gradient-to-b from-[#FBFCFB] to-[#FBFCFB] px-4 py-20"
+            className="relative z-10 h-auto flex items-center justify-center bg-[#FBFCFB] px-4 py-20"
         >
             <motion.div
                 className="text-center max-w-2xl"

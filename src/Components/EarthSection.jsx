@@ -27,7 +27,7 @@ function EarthSection() {
             <style>{cloudAnimation}</style>
             <section
                 ref={sectionRef}
-                className="relative w-full min-h-[500px] md:min-h-[800px] overflow-hidden"
+                className="relative w-full min-h-[500px] md:h-screen sticky top-0 overflow-hidden"
             >
 
                 <motion.img

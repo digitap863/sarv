@@ -27,7 +27,7 @@ function GreenSection() {
             <style>{cloudAnimation}</style>
             <section
                 ref={sectionRef}
-                className="relative w-full min-h-[500px] md:min-h-[800px] overflow-hidden"
+                className="relative w-full min-h-[500px] md:h-screen overflow-hidden sticky top-0"
             >
                 {/* White Gradient Overlay - Top and Bottom to Transparent Middle */}
                 <div
