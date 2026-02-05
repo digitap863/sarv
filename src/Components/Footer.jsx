@@ -35,10 +35,53 @@ export default function Footer() {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedResource, setSelectedResource] = useState('');
 
+    // Newsletter states
+    const [email, setEmail] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [message, setMessage] = useState({ type: '', text: '' });
+
     const handleResourceClick = (e, resourceName) => {
         e.preventDefault();
         setSelectedResource(resourceName);
         setModalOpen(true);
+    };
+
+    // Newsletter subscription handler
+    const handleSubscribe = async (e) => {
+        e.preventDefault();
+
+        if (!email) {
+            setMessage({ type: 'error', text: 'Please enter your email' });
+            return;
+        }
+
+        setIsLoading(true);
+        setMessage({ type: '', text: '' });
+
+        try {
+            const response = await fetch('http://localhost:3001/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setMessage({ type: 'success', text: '✅ Subscribed successfully!' });
+                setEmail('');
+            } else {
+                setMessage({ type: 'error', text: data.message || 'Subscription failed' });
+            }
+        } catch (error) {
+            setMessage({ type: 'error', text: 'Network error. Please try again.' });
+        } finally {
+            setIsLoading(false);
+            // Clear message after 5 seconds
+            setTimeout(() => setMessage({ type: '', text: '' }), 5000);
+        }
     };
 
     return (
@@ -88,21 +131,34 @@ export default function Footer() {
                         </p>
 
                         {/* Newsletter Section */}
-                        <div className="pt-4 space-y-3">
+                        <form onSubmit={handleSubscribe} className="pt-4 space-y-3">
                             <p className="text-white/80 text-sm">
                                 Get Our Weekly Newsletter (Zero Spam)
                             </p>
                             <div className="flex items-center gap-2">
                                 <input
                                     type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Type In Your Email"
                                     className="flex-1 bg-[#2a3a2a]/50 border border-gray-600/30 rounded-md px-4 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#3d9a7a] transition-colors max-w-[200px]"
+                                    disabled={isLoading}
                                 />
-                                <button className="bg-[#3d9a7a] hover:bg-[#2d7a6a] text-white px-6 py-2.5 rounded-md text-sm font-medium transition-colors">
-                                    Send
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className={`bg-[#3d9a7a] hover:bg-[#2d7a6a] text-white px-6 py-2.5 rounded-md text-sm font-medium transition-colors ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                >
+                                    {isLoading ? '...' : 'Send'}
                                 </button>
                             </div>
-                        </div>
+                            {/* Status Message */}
+                            {message.text && (
+                                <p className={`text-xs ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                                    {message.text}
+                                </p>
+                            )}
+                        </form>
                     </motion.div>
 
                     {/* Company Links */}
