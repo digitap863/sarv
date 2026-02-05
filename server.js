@@ -13,7 +13,7 @@ app.use(express.json());
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'feminatapclone@gmail.com',
+        user: 'info@sarvsustain.com',
         pass: 'cwwr zxvc fvxg oraa' // App password
     }
 });
@@ -35,8 +35,8 @@ app.post('/api/subscribe', async (req, res) => {
     try {
         // Send notification email to admin
         await transporter.sendMail({
-            from: '"Sarv Sustain Newsletter" <feminatapclone@gmail.com>',
-            to: 'feminatapclone@gmail.com',
+            from: '"Sarv Sustain Newsletter" <info@sarvsustain.com>',
+            to: 'info@sarvsustain.com',
             subject: '🌱 New Newsletter Subscription - Sarv Sustain',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8faf8;">
@@ -65,7 +65,7 @@ app.post('/api/subscribe', async (req, res) => {
 
         // Send welcome email to subscriber
         await transporter.sendMail({
-            from: '"Sarv Sustain" <feminatapclone@gmail.com>',
+            from: '"Sarv Sustain" <info@sarvsustain.com>',
             to: email,
             subject: '🌱 Welcome to Sarv Sustain Newsletter!',
             html: `
