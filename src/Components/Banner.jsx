@@ -45,7 +45,7 @@ const Banner = () => {
                 id="home"
                 className="relative w-full md:h-screen h-[100dvh]  overflow-hidden flex md:items-center bg-white">
                 {/* Video Background */}
-                <div className="absolute bottom-0 md:left-0 -left-50 md:w-full md:h-full h-[50%] z-0">
+                <div className="absolute md:bottom-0 bottom-0 md:left-0 -left-50 md:w-full md:h-full h-[51%] z-0 bg-white">
                     <video
                         ref={videoRef}
                         autoPlay
@@ -57,6 +57,8 @@ const Banner = () => {
                         <source src="/videos/heroear.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
+                    {/* Top gradient to hide potential gaps on mobile */}
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white to-transparent md:hidden z-10" />
                 </div>
 
                 <img src={cloud1} alt="" className="hidden lg:block absolute -top-10 left-40 w-auto md:h-[30vh] h-[10vh] z-10" style={{ animation: 'floatCloud 60s linear infinite' }} />
