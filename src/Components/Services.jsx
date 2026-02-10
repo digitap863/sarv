@@ -1,5 +1,9 @@
 import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Service images - using available images
 const serviceImages = {
@@ -139,7 +143,7 @@ const ServiceCard = ({ service, index, onExplore }) => {
             </div>
 
             {/* Card Content */}
-            <div className="p-6 flex flex-col flex-grow">
+            <div className="md:p-6 p-4 flex flex-col flex-grow">
                 {/* Title */}
                 <h3 className="text-[#1a472a] text-lg md:text-xl font-bold uppercase mb-4 leading-tight tracking-wide">
                     {service.title}
@@ -148,7 +152,7 @@ const ServiceCard = ({ service, index, onExplore }) => {
                 {/* Features List */}
                 <ul className="space-y-3 mb-6 flex-grow ">
                     {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-gray-600 text-sm leading-relaxed pl-6">
+                        <li key={idx} className="flex items-start gap-2 text-gray-600 text-sm leading-relaxed md:pl-6">
                             <span className="text-[#1a472a] mt-1 flex-shrink-0">•</span>
                             <span>{feature}</span>
                         </li>
@@ -199,12 +203,12 @@ export default function Services() {
         <section
             ref={sectionRef}
             id="services"
-            className="relative bg-[#FBFCFB] py-20 px-6 overflow-hidden"
+            className="relative bg-[#FBFCFB] py-20 md:px-6 px-4 overflow-hidden"
         >
             <div className="max-w-7xl mx-auto bg-[#FBFCFB]">
                 {/* Header Section */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center md:mb-16 mb-8"
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                     variants={containerVariants}
@@ -219,7 +223,7 @@ export default function Services() {
 
                     {/* Main Title */}
                     <motion.h2
-                        className="text-[#1a472a] text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-6 tracking-wide font-philosopher"
+                        className="text-[#1a472a] text-3xl md:text-5xl lg:text-6xl font-bold uppercase mb-6 tracking-wide font-philosopher"
                         variants={headerVariants}
                     >
                         CORE SERVICES
@@ -227,7 +231,7 @@ export default function Services() {
 
                     {/* Description */}
                     <motion.p
-                        className="text-[#205B23] text-base md:text-lg max-w-3xl mx-auto leading-relaxed"
+                        className="text-[#205B23] text-base md:text-lg md:max-w-3xl w-full mx-auto leading-relaxed"
                         variants={headerVariants}
                     >
                         Comprehensive <span className="font-semibold text-[#1a472a]">Environmental Consulting</span> Designed To Guide Organizations Toward Sustainable
@@ -235,9 +239,9 @@ export default function Services() {
                     </motion.p>
                 </motion.div>
 
-                {/* Services Grid */}
+                {/* Services Grid - Desktop */}
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                     variants={containerVariants}
@@ -254,9 +258,38 @@ export default function Services() {
                     </AnimatePresence>
                 </motion.div>
 
-                {/* View All Services Button */}
+                {/* Services Swiper - Mobile */}
+                <div className="md:hidden">
+                    <Swiper
+                        modules={[Pagination, Autoplay]}
+                        spaceBetween={16}
+                        slidesPerView={1.15}
+                        centeredSlides={true}
+                        pagination={{
+                            clickable: true,
+                            dynamicBullets: true,
+                        }}
+                        autoplay={{
+                            delay: 3000,
+                            disableOnInteraction: true,
+                        }}
+                        className="services-swiper !pb-12"
+                    >
+                        {servicesData.map((service, index) => (
+                            <SwiperSlide key={service.id}>
+                                <ServiceCard
+                                    service={service}
+                                    index={index}
+                                    onExplore={handleExplore}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+
+                {/* View All Services Button - Desktop only */}
                 <motion.div
-                    className="flex justify-end mt-10"
+                    className="hidden md:flex justify-end mt-10"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.5, delay: 0.6 }}

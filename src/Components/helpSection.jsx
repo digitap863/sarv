@@ -63,7 +63,7 @@ export default function HelpSection() {
                 >
                     {/* Main Heading */}
                     <motion.h1
-                        className="text-4xl md:text-5xl font-bold text-emerald-800 mb-4 font-philosopher"
+                        className="text-3xl md:text-5xl font-bold text-emerald-800 mb-4 font-philosopher"
                         variants={itemVariants}
                     >
                         We can help you achieve your sustainability goals.
@@ -71,7 +71,7 @@ export default function HelpSection() {
 
                     {/* Description */}
                     <motion.p
-                        className="text-emerald-700 mb-8 text-lg"
+                        className="text-emerald-700 mb-8 md:text-lg text-sm"
                         variants={itemVariants}
                     >
                         Take the first step toward environmental responsibility. Our team is ready to guide your organization's sustainability journey.
@@ -79,7 +79,7 @@ export default function HelpSection() {
 
                     {/* Buttons Container */}
                     <motion.div
-                        className="flex gap-4 justify-center flex-wrap"
+                        className="flex gap-4 justify-center md:flex-wrap flex-col md:flex-row"
                         variants={itemVariants}
                     >
                         <motion.button

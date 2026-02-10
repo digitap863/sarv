@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const aboutImage = '/images/about.png';
+const aboutmob = '/images/aboutmob.png';
 const cloud1 = '/images/clou1.png';
 const cloud2 = '/images/clou2.png';
 const aboo = '/images/aboo.png';
@@ -89,14 +90,14 @@ export default function About() {
       <section
         ref={sectionRef}
         id="about"
-        className="relative h-auto py-20 px-6 overflow-hidden"
+        className="relative h-auto md:py-20 py-12  md:px-6  px-3 overflow-hidden"
       >
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <motion.img
             src={aboutImage}
             alt="About background"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center md:block hidden"
             initial={{ opacity: 0, scale: 1.05 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
             transition={{ duration: 1.2, delay: 0.2 }}
@@ -105,11 +106,11 @@ export default function About() {
           {/* <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/60"></div> */}
         </div>
 
-      {/* Cloud Decorations */}
+        {/* Cloud Decorations */}
 
-               <img src={cloud1} alt="" className="hidden lg:block absolute top-6 left-[13%] w-auto h-[30vh] " style={{ animation: 'floatCloud 80s linear infinite', }} />
-                <img src={cloud2} alt="" className="hidden lg:block absolute bottom-6 left-[0%] w-auto h-[30vh] " style={{ animation: 'floatCloud 80s linear infinite', animationDelay: '0s' }} />
-                <img src={cloud1} alt="" className="hidden lg:block absolute top-[45%] left-[0%] w-auto h-[30vh] " style={{ animation: 'floatCloud2 80s linear infinite', animationDelay: '15s' }} />
+        <img src={cloud1} alt="" className="hidden lg:block absolute top-6 left-[13%] w-auto h-[30vh] " style={{ animation: 'floatCloud 80s linear infinite', }} />
+        <img src={cloud2} alt="" className="hidden lg:block absolute bottom-6 left-[0%] w-auto h-[30vh] " style={{ animation: 'floatCloud 80s linear infinite', animationDelay: '0s' }} />
+        <img src={cloud1} alt="" className="hidden lg:block absolute top-[45%] left-[0%] w-auto h-[30vh] " style={{ animation: 'floatCloud2 80s linear infinite', animationDelay: '15s' }} />
 
 
 
@@ -125,33 +126,33 @@ export default function About() {
             >
               {/* Main Heading */}
 
-              <h1 className="text-[#1a472a] text-2xl  mb-3 leading-tight ">OUR PURPOSE</h1>
+              <h1 className="text-[#1a472a] text-xl md:text-2xl  mb-3 leading-tight ">OUR PURPOSE</h1>
               <motion.h2
-                className="text-[#1a472a] text-3xl md:text-4xl lg:text-5xl font-bold uppercase italic mb-10 leading-tight font-philosopher"
+                className="text-[#1a472a] text-2xl md:text-4xl lg:text-5xl font-bold uppercase italic md:mb-10 mb-4 leading-tight font-philosopher"
                 variants={itemVariants}
               >
-                WE BELIEVE  IN Business DRIVEN BY PURPOSE <br />  AND GROWING WITH CARE
+                WE BELIEVE  IN Business DRIVEN BY PURPOSE <br className='md:block hidden' />  AND GROWING WITH CARE
               </motion.h2>
 
               {/* Description Points */}
-              <motion.div className="space-y-2 mb-12 pl-3 pt-3 relative " variants={itemVariants}>
+              <motion.div className="md:space-y-2 space-y-3 md:mb-12 mb-8 md:pl-3 md:pt-3 relative " variants={itemVariants}>
 
 
 
                 <motion.p
-                  className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide capitalize "
+                  className="text-[#205B23] text-base md:text-lg md:leading-relaxed tracking-wide capitalize "
                   variants={itemVariants}
                 >
                   Frameworks that emphasise long-term, responsible stewardship of both nature and <br /> society by choices of today
                 </motion.p>
                 <motion.p
-                  className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide "
+                  className="text-[#205B23] text-base md:text-lg md:leading-relaxed tracking-wide "
                   variants={itemVariants}
                 >
                   Workplaces And Organisations Rooted In Fairness, Diversity, And Human Well-Being.
                 </motion.p>
                 <motion.p
-                  className="text-[#205B23] text-base md:text-lg leading-relaxed tracking-wide "
+                  className="text-[#205B23] text-base md:text-lg md:leading-relaxed tracking-wide "
                   variants={itemVariants}
                 >
                   Governance That Balances Risk, Responsibility And Long Term Value Creation.
@@ -159,9 +160,29 @@ export default function About() {
 
               </motion.div>
 
+              {/* aboutmob image in the mobile view only */}
+              <div className="md:hidden block relative ">
+                <motion.img
+                  src={aboutmob}
+                  alt="About background"
+                  className="w-full h-auto object-cover object-center"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 1.2, delay: 0.2 }}
+                />
+                {/* Top blend */}
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#FBFCFB] to-transparent" />
+                {/* Bottom blend */}
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FBFCFB] to-transparent" />
+                {/* Left blend */}
+                <div className="absolute top-0 bottom-0 left-0 w-10 bg-gradient-to-r from-[#FBFCFB] to-transparent" />
+                {/* Right blend */}
+                <div className="absolute top-0 bottom-0 right-0 w-10 bg-gradient-to-l from-[#FBFCFB] to-transparent" />
+              </div>
+
               {/* Mission Statement */}
               <motion.div
-                className="mt-16"
+                className="md:mt-16 mt-0"
                 variants={itemVariants}
               >
                 {/* Mission Heading */}
@@ -176,7 +197,7 @@ export default function About() {
                 </p>
 
                 {/* Mission Items Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 max-w-4xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 md:gap-y-6 max-w-4xl md:pl-0 pl-4">
                   {/* Item 1 - Strategic Planning */}
                   <motion.div
                     className="flex items-center gap-4"
@@ -233,6 +254,7 @@ export default function About() {
                   </motion.div>
                 </div>
               </motion.div>
+
             </motion.div>
           </div>
         </div>

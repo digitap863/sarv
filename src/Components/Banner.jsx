@@ -42,10 +42,10 @@ const Banner = () => {
             <style>{cloudAnimation}</style>
             <style>{cloudHalfAnimation}</style>
             <section
-            id="home"
-             className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center">
+                id="home"
+                className="relative w-full md:h-screen h-[100dvh]  overflow-hidden flex md:items-center bg-white">
                 {/* Video Background */}
-                <div className="absolute top-0 left-0 w-full h-full z-0">
+                <div className="absolute bottom-0 md:left-0 -left-50 md:w-full md:h-full h-[50%] z-0">
                     <video
                         ref={videoRef}
                         autoPlay
@@ -57,13 +57,11 @@ const Banner = () => {
                         <source src="/videos/heroear.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
-                    {/* Dark overlay for better text readability */}
-                    {/* <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/85 via-white/60 via-40% to-white/10"></div> */}
                 </div>
 
-                <img src={cloud1} alt="" className="hidden lg:block absolute -top-10 left-40 w-auto h-[30vh] z-10" style={{ animation: 'floatCloud 60s linear infinite' }} />
-                <img src={cloud2} alt="" className="hidden lg:block absolute -bottom-10 left-20 w-auto h-[30vh] z-10" style={{ animation: 'floatCloud 80s linear infinite' }} />
-                <img src={cloud1} alt="" className="hidden lg:block absolute top-56 -left-[13%] w-auto h-[30vh] z-10" style={{ animation: 'floatCloudHalf 80s linear infinite', animationDelay: '2s' }} />
+                <img src={cloud1} alt="" className="hidden lg:block absolute -top-10 left-40 w-auto md:h-[30vh] h-[10vh] z-10" style={{ animation: 'floatCloud 60s linear infinite' }} />
+                <img src={cloud2} alt="" className="hidden lg:block absolute -bottom-10 left-20 w-auto md:h-[30vh] h-[10vh] z-10" style={{ animation: 'floatCloud 80s linear infinite' }} />
+                <img src={cloud1} alt="" className="hidden lg:block absolute top-56 -left-[13%] w-auto md:h-[30vh] h-[10vh] z-10" style={{ animation: 'floatCloudHalf 80s linear infinite', animationDelay: '2s' }} />
 
                 {/* White Gradient Overlay - Bottom Only */}
                 <div
@@ -161,7 +159,7 @@ const Banner = () => {
                 />
 
                 {/* Content */}
-                <div className="relative z-10 w-full max-w-[1400px] mx-auto px-[60px] flex items-center lg:px-10 md:px-6 md:pt-[100px] md:items-start sm:px-4 sm:pt-[120px]">
+                <div className="relative z-10 w-full max-w-[1400px] mx-auto md:px-[60px] px-4 flex md:items-center lg:px-10 md:px-6 md:pt-[100px] pt-[130px] md:items-start sm:px-4 ">
                     <motion.div
                         className="max-w-[600px] md:max-w-full"
                         initial={{ opacity: 0, y: 30 }}
@@ -170,37 +168,37 @@ const Banner = () => {
                     >
                         {/* Subtitle Badge */}
                         <motion.div
-                            className="inline-block bg-white py-2.5 px-6 rounded-full mb-[30px] border-[1px] border-black/20 md:py-1 md:px-[18px] md:mb-5"
+                            className="inline-block bg-white md:py-2.5 py-1 px-6 rounded-full mb-4 border-[1px] border-black/20 md:py-1 md:px-[18px] md:mb-5"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 0.5 }}
                         >
-                            <span className="text-[#2A652D] text-base font-medium  uppercase md:text-[14px] md:tracking-[1.5px] sm:text-[12px] font-philosopher">
+                            <span className="text-[#2A652D] md:text-base text-sm font-medium  uppercase md:text-[14px] md:tracking-[1.5px] sm:text-[12px] font-philosopher">
                                 ENVIRONMENTAL CONSULTING
                             </span>
                         </motion.div>
 
                         {/* Main Heading */}
                         <motion.h1
-                            className="m-0 mb-10 leading-[1.1] md:mb-[23px] font-philosopher "
+                            className="m-0 mb-4 md:leading-[1.1] leading-[1.1] md:mb-[23px] font-philosopher "
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.7 }}
                         >
-                            <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(48px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
-                                FOR SUSTAINABLE  
+                            <span className="block text-[clamp(36px,8vw,90px)]  md:text-[clamp(48px,16vw,70px)] font-extrabold text-[#1a472a] uppercase md:tracking-[-2px] tracking-[-0px] font-['Inter','Segoe_UI',sans-serif]  md:tracking-[-1px] font-philosopher">
+                                FOR SUSTAINABLE
                             </span>
-                            <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(48px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
-                               BUSINESS
+                            <span className="block text-[clamp(36px,8vw,90px)]  md:text-[clamp(48px,16vw,70px)] font-extrabold text-[#1a472a] uppercase md:tracking-[-2px] tracking-[-0px] font-['Inter','Segoe_UI',sans-serif]  md:tracking-[-1px] font-philosopher">
+                                BUSINESS
                             </span>
-                            <span className="block text-[clamp(48px,8vw,90px)] font-extrabold text-[#1a472a] uppercase tracking-[-2px] font-['Inter','Segoe_UI',sans-serif] md:text-[clamp(36px,16vw,70px)] md:tracking-[-1px] sm:text-[clamp(32px,14vw,50px)] font-philosopher">
+                            <span className="block text-[clamp(36px,8vw,90px)]  md:text-[clamp(48px,16vw,70px)] font-extrabold text-[#1a472a] uppercase md:tracking-[-2px] tracking-[-0px] font-['Inter','Segoe_UI',sans-serif]  md:tracking-[-1px] font-philosopher">
                                 SOLUTIONS
                             </span>
                         </motion.h1>
 
                         {/* Tagline */}
                         <motion.p
-                            className="text-[#1a472a] text-lg md:text-xl font-medium italic mb-8 md:mb-6 tracking-wide"
+                            className="text-[#1a472a] text-lg md:text-xl font-medium italic mb-6 md:mb-6 tracking-wide"
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.9 }}
@@ -220,7 +218,7 @@ const Banner = () => {
                                     e.preventDefault();
                                     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
                                 }}
-                                className="inline-flex items-center gap-3 bg-gradient-to-br from-[#205B23] to-[#257C88] text-white py-4 px-14 rounded-xl text-base font-semibold no-underline transition-all duration-300 shadow-[0_4px_4px_rgba(0,0,0,0.25)] hover:-translate-y-[3px] hover:shadow-[0_4px_4px_rgba(0,0,0,0.50)] hover:from-[#2d7a50] hover:to-[#3d9a60] group md:py-3.5 md:px-7 md:text-sm cursor-pointer"
+                                className="inline-flex items-center gap-3 bg-gradient-to-br from-[#205B23] to-[#257C88] text-white md:py-4 py-3 md:px-14 px-4 rounded-xl text-base font-semibold no-underline transition-all duration-300 shadow-[0_4px_4px_rgba(0,0,0,0.25)] hover:-translate-y-[3px] hover:shadow-[0_4px_4px_rgba(0,0,0,0.50)] hover:from-[#2d7a50] hover:to-[#3d9a60] group md:py-3.5 md:px-7 md:text-sm cursor-pointer"
                             >
                                 <span>Start Your Journey</span>
                                 <svg
@@ -240,7 +238,7 @@ const Banner = () => {
 
                 {/* Scroll Indicator */}
                 <motion.div
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 md:bottom-[30px]"
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 md:bottom-[30px] md:block hidden"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.5, duration: 0.8 }}

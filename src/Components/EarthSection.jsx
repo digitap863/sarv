@@ -27,13 +27,13 @@ function EarthSection() {
             <style>{cloudAnimation}</style>
             <section
                 ref={sectionRef}
-                className="relative w-full min-h-[500px] md:h-screen sticky top-0 overflow-hidden"
+                className="relative w-full md:h-screen h-[85vh] sticky top-0 overflow-hidden"
             >
 
                 <motion.img
                     src={plantt}
                     alt=""
-                    className='absolute bottom-0 right-0 z-10'
+                    className='hidden md:block absolute bottom-0 right-0 z-10'
                     initial={{ opacity: 0, x: 150, y: 150 }}
                     animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 150, y: 150 }}
                     transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
@@ -70,7 +70,7 @@ function EarthSection() {
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         {/* Air Icon */}
-                        <PiPlant className="text-white text-5xl mb-2 " />
+                        <PiPlant className="text-white text-4xl md:text-5xl mb-2" />
 
                         {/* AIR Label */}
                         <motion.span
@@ -84,7 +84,7 @@ function EarthSection() {
 
                         {/* Main Heading */}
                         <motion.h2
-                            className="text-white text-2xl md:text-4xl uppercase lg:text-4xl font-bold italic leading-tight tracking-wide font-philosopher md:whitespace-nowrap"
+                            className="text-white text-xl md:text-4xl uppercase lg:text-4xl font-bold italic leading-tight tracking-wide font-philosopher md:whitespace-nowrap"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.5 }}
@@ -94,7 +94,7 @@ function EarthSection() {
 
                         {/* Subtext */}
                         <motion.p
-                            className="text-white/70 text-base md:text-lg font-light tracking-widest capitalize mt-2"
+                            className="text-white/70 text-base md:text-lg font-light tracking-widest capitalize md:mt-2"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.6 }}
@@ -106,7 +106,7 @@ function EarthSection() {
                         <motion.img
                             src={arroww}
                             alt="Arrow decoration"
-                            className="absolute bottom-0 left-[18%] w-[300px] md:w-[370px] h-auto z-10 opacity-100"
+                            className="hidden md:block absolute bottom-0 left-[18%] w-[300px] md:w-[370px] h-auto z-10 opacity-100"
                             initial={{ opacity: 0, x: 50, y: 50 }}
                             animate={isInView ? { opacity: 0.8, x: 0, y: 0 } : { opacity: 0, x: 50, y: 50 }}
                             transition={{ duration: 1, delay: 0.5 }}
@@ -115,14 +115,14 @@ function EarthSection() {
 
                     {/* Right Card */}
                     <motion.div
-                        className="  border border-white/30 rounded-xl p-6 md:p-8 max-w-md absolute bottom-[25%] right-[2%]"
+                        className="mt-10 backdrop-blur-md border border-white/30 rounded-xl p-5 md:p-8 max-w-md md:absolute md:bottom-[25%] md:right-[2%] w-full md:w-auto"
                         initial={{ opacity: 0, x: 50 }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                         transition={{ duration: 0.6, delay: 0.7 }}
                     >
                         {/* Card Title */}
                         <h3 className="text-white text-xl md:text-2xl font-semibold mb-4">
-                           Soil Quality
+                            Soil Quality
                         </h3>
 
                         {/* Card List */}

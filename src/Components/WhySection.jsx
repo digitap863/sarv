@@ -3,6 +3,7 @@ import { useRef } from 'react';
 
 // Background image
 const whybg = '/images/whybg.png';
+const whybgmob = '/images/whybgmob.png';
 // Cloud images
 const c1 = '/images/c1.png';
 const c2 = '/images/c2.png';
@@ -54,14 +55,19 @@ function WhySection() {
         <section
             ref={sectionRef}
             id="mission"
-            className="relative w-full min-h-[600px] md:min-h-[600px] overflow-hidden bg-gradient-to-b from-[#FBFCFB] to-[#FBFCFB]"
+            className="relative w-full h-auto  md:min-h-[600px] overflow-hidden bg-gradient-to-b from-[#FBFCFB] to-[#FBFCFB]"
         >
             {/* Background Image - Forest/Trees */}
             <div className="absolute bottom-0 left-0 right-0 z-0">
                 <img
                     src={whybg}
                     alt="Forest background"
-                    className="w-full h-auto object-cover opacity-90"
+                    className="w-full h-auto object-cover opacity-90 md:block hidden"
+                />
+                <img
+                    src={whybgmob}
+                    alt="Forest background"
+                    className="w-full h-auto object-cover opacity-90 md:hidden block"
                 />
             </div>
 
@@ -81,7 +87,7 @@ function WhySection() {
             >
                 {/* Subtitle */}
                 <motion.p
-                    className="text-[#1a472a] text-sm md:text-base uppercase tracking-[4px] mb-4 font-medium"
+                    className="text-[#1a472a] text-sm md:text-base uppercase tracking-[4px] md:mb-4 mb-3 font-medium"
                     variants={itemVariants}
                 >
                     WHY WE EXIST
@@ -89,7 +95,7 @@ function WhySection() {
 
                 {/* Main Heading */}
                 <motion.h2
-                    className="text-[#1a472a] text-3xl md:text-4xl lg:text-5xl font-bold uppercase mb-10 tracking-wide font-philosopher"
+                    className="text-[#1a472a] text-2xl md:text-4xl lg:text-5xl font-bold uppercase mb-10 md:tracking-wide font-philosopher whitespace-nowrap"
                     variants={itemVariants}
                 >
                     WHY SUSTAINABILITY MATTERS
@@ -97,7 +103,7 @@ function WhySection() {
 
                 {/* First Paragraph */}
                 <motion.p
-                    className="text-[#205B23] text-base md:text-lg lg:text-xl  mb-2 max-w-4xl mx-auto"
+                    className="text-[#205B23] text-base md:text-lg lg:text-xl  md:mb-2 mb-1 max-w-4xl mx-auto"
                     variants={itemVariants}
                 >
                     We Believe The Future Depends On The Choices We Make Today.
@@ -105,7 +111,7 @@ function WhySection() {
 
                 {/* Bold Highlighted Paragraph */}
                 <motion.p
-                    className="text-[#1a472a] text-base md:text-lg lg:text-xl font-bold leading-relaxed mb-6 max-w-4xl mx-auto"
+                    className="text-[#1a472a] text-base md:text-lg lg:text-xl font-bold leading-relaxed md:mb-6 mb-3 max-w-4xl mx-auto"
                     variants={itemVariants}
                 >
                     Clean Water, Breathable Air, And Healthy Soil Are Not Luxuries — They Are Responsibilities.

@@ -27,7 +27,7 @@ function GreenSection() {
             <style>{cloudAnimation}</style>
             <section
                 ref={sectionRef}
-                className="relative w-full min-h-[500px] md:h-screen overflow-hidden sticky top-0"
+                className="relative w-full md:h-screen h-[85vh] overflow-hidden sticky top-0"
             >
                 {/* White Gradient Overlay - Top and Bottom to Transparent Middle */}
                 <div
@@ -60,7 +60,7 @@ function GreenSection() {
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         {/* Air Icon */}
-                        <IoWaterOutline className="text-white text-5xl mb-2 " />
+                        <IoWaterOutline className="text-white text-4xl md:text-5xl mb-2" />
 
                         {/* AIR Label */}
                         <motion.span
@@ -74,7 +74,7 @@ function GreenSection() {
 
                         {/* Main Heading */}
                         <motion.h2
-                            className="text-white text-2xl md:text-4xl uppercase lg:text-4xl font-bold italic leading-tight tracking-wide font-philosopher md:whitespace-nowrap"
+                            className="text-white text-xl md:text-4xl uppercase lg:text-4xl font-bold italic leading-tight tracking-wide font-philosopher md:whitespace-nowrap"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.5 }}
@@ -84,7 +84,7 @@ function GreenSection() {
 
                         {/* Subtext */}
                         <motion.p
-                            className="text-white/90 text-base md:text-lg font-light tracking-wide mt-2"
+                            className="text-white/90 text-base md:text-lg font-light tracking-wide md:mt-2"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.6 }}
@@ -96,7 +96,7 @@ function GreenSection() {
                         <motion.img
                             src={arroww}
                             alt="Arrow decoration"
-                            className="absolute bottom-10 left-[33%] w-[300px] md:w-[370px] h-auto z-10 opacity-100"
+                            className="hidden md:block absolute bottom-10 left-[33%] w-[300px] md:w-[370px] h-auto z-10 opacity-100"
                             initial={{ opacity: 0, x: 50, y: 50 }}
                             animate={isInView ? { opacity: 0.8, x: 0, y: 0 } : { opacity: 0, x: 50, y: 50 }}
                             transition={{ duration: 1, delay: 0.5 }}
@@ -105,14 +105,14 @@ function GreenSection() {
 
                     {/* Right Card */}
                     <motion.div
-                        className="  backdrop-blur-sm border border-white/30 rounded-xl p-6 md:p-8 max-w-sm absolute bottom-[25%] right-[2%]"
+                        className="mt-10 backdrop-blur-sm border border-white/30 rounded-xl p-5 md:p-8 max-w-sm md:absolute md:bottom-[25%] md:right-[2%] w-full md:w-auto"
                         initial={{ opacity: 0, x: 50 }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                         transition={{ duration: 0.6, delay: 0.7 }}
                     >
                         {/* Card Title */}
                         <h3 className="text-white text-xl md:text-2xl font-semibold mb-4">
-                           Water Quality
+                            Water Quality
                         </h3>
 
                         {/* Card List */}

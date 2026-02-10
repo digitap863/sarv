@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 // Public folder assets
 const logofooter = '/images/logofooter.png';
 const footerbg = '/images/footerbg.png';
+const footerbgmob = '/images/footerbgmob.png';
 
 // Animation variants
 const containerVariants = {
@@ -91,14 +92,17 @@ export default function Footer() {
             id="contact"
         >
             {/* Background Image - Forest/Trees */}
-            <div className="absolute bottom-0 left-0 right-0 h-full">
+            <div className="absolute inset-0 z-0 h-full w-full">
                 <img
                     src={footerbg}
                     alt="Forest background"
-                    className="w-full h-auto object-cover object-bottom opacity-100"
+                    className="w-full h-full object-cover object-bottom hidden md:block"
                 />
-                {/* Dark overlay */}
-                {/* <div className="absolute inset-0 "></div> */}
+                <img
+                    src={footerbgmob}
+                    alt="Forest background mobile"
+                    className="w-full h-full object-cover object-bottom md:hidden block"
+                />
             </div>
 
             {/* Main Footer Content */}
@@ -108,33 +112,58 @@ export default function Footer() {
                 animate={isInView ? "visible" : "hidden"}
                 variants={containerVariants}
             >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+                {/* Desktop and Mobile Layout Toggle */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8">
 
-                    {/* Left Section - Logo, Tagline & Newsletter */}
-                    <motion.div
-                        className="lg:col-span-4 space-y-6"
-                        variants={itemVariants}
-                    >
+                    {/* Link Sections Container - Order 1 on Mobile */}
+                    <div className="grid grid-cols-2 md:grid-cols-8 lg:col-span-8 gap-8 order-1 md:order-2">
+                        {/* Company Links */}
+                        <motion.div className="col-span-1 md:col-span-2" variants={itemVariants}>
+                            <h3 className="text-white font-semibold text-lg md:text-base mb-5">Company</h3>
+                            <ul className="space-y-3">
+                                <li><a href="/" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">Home</a></li>
+                                <li><a href="#about" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">About Us</a></li>
+                                <li><a href="#mission" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">Mission</a></li>
+                                <li><a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">Services</a></li>
+                            </ul>
+                        </motion.div>
+
+                        {/* Solutions Links */}
+                        <motion.div className="col-span-1 md:col-span-3" variants={itemVariants}>
+                            <h3 className="text-white font-semibold text-lg md:text-base mb-5">Solutions</h3>
+                            <ul className="space-y-3">
+                                <li><a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">ESG</a></li>
+                                <li><a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">GHG</a></li>
+                                <li><a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">Software</a></li>
+                                <li><a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">Regulatory Compliance</a></li>
+                            </ul>
+                        </motion.div>
+
+                        {/* Resources Links */}
+                        <motion.div className="col-span-2 md:col-span-3" variants={itemVariants}>
+                            <h3 className="text-white font-semibold text-lg md:text-base mb-5">Resources</h3>
+                            <ul className="space-y-3">
+                                <li><a href="#" onClick={(e) => handleResourceClick(e, 'Blog')} className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer">Blog</a></li>
+                                <li><a href="#" onClick={(e) => handleResourceClick(e, 'Case Studies')} className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer">Case Studies</a></li>
+                                <li><a href="#" onClick={(e) => handleResourceClick(e, 'Documentation')} className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer">Documentation</a></li>
+                                <li><a href="#" onClick={(e) => handleResourceClick(e, 'Support')} className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer">Support</a></li>
+                            </ul>
+                        </motion.div>
+                    </div>
+
+                    {/* Left Section (Desktop) / Bottom Section (Mobile) - Order 3 on Mobile */}
+                    <div className="hidden md:flex flex-col lg:col-span-4 space-y-6 order-1">
                         {/* Logo */}
                         <div className="mb-4">
-                            <img
-                                src={logofooter}
-                                alt="Sarv Sustain"
-                                className="h-20 w-auto"
-                            />
+                            <img src={logofooter} alt="Sarv Sustain" className="h-20 w-auto" />
                         </div>
-
                         {/* Tagline */}
                         <p className="text-white/80 text-sm leading-relaxed max-w-xs">
-                            We Can Help You Achieve Your<br />
-                            Sustainability Goals.
+                            We Can Help You Achieve Your<br />Sustainability Goals.
                         </p>
-
-                        {/* Newsletter Section */}
+                        {/* Desktop Newsletter */}
                         <form onSubmit={handleSubscribe} className="pt-4 space-y-3">
-                            <p className="text-white/80 text-sm">
-                                Get Our Weekly Newsletter (Zero Spam)
-                            </p>
+                            <p className="text-white/80 text-sm">Get Our Weekly Newsletter (Zero Spam)</p>
                             <div className="flex items-center gap-2">
                                 <input
                                     type="email"
@@ -152,121 +181,47 @@ export default function Footer() {
                                     {isLoading ? '...' : 'Send'}
                                 </button>
                             </div>
-                            {/* Status Message */}
                             {message.text && (
-                                <p className={`text-xs ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
-                                    {message.text}
-                                </p>
+                                <p className={`text-xs ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{message.text}</p>
                             )}
                         </form>
-                    </motion.div>
+                    </div>
 
-                    {/* Company Links */}
-                    <motion.div
-                        className="lg:col-span-2"
-                        variants={itemVariants}
-                    >
-                        <h3 className="text-white font-semibold text-base mb-5">Company</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <a href="/" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#about" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#mission" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    Mission
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    Services
-                                </a>
-                            </li>
+                    {/* Mobile Only: Newsletter & Centered Logo/Tagline - Order 2 & 3 */}
+                    <div className="md:hidden flex flex-col space-y-12 order-2 mt-8">
+                        {/* Mobile Newsletter - Pill Shaped */}
+                        <form onSubmit={handleSubscribe} className="space-y-4">
+                            <p className="text-white/60 text-sm text-center">Get Our Weekly Newsletter</p>
+                            <div className="relative flex items-center bg-[#252525]/80 backdrop-blur-sm rounded-full p-1 border border-white/10 mx-auto w-full max-w-sm">
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Type In Your Email"
+                                    className="flex-1 bg-transparent px-6 py-3 text-white text-sm placeholder-gray-500 focus:outline-none"
+                                    disabled={isLoading}
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className={`bg-[#518fbb] hover:bg-[#3d7aa3] text-white px-8 py-3 rounded-full text-sm font-medium transition-colors ${isLoading ? 'opacity-70' : ''}`}
+                                >
+                                    {isLoading ? '...' : 'Send'}
+                                </button>
+                            </div>
+                            {message.text && (
+                                <p className={`text-xs text-center ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{message.text}</p>
+                            )}
+                        </form>
 
-                        </ul>
-                    </motion.div>
-
-                    {/* Solutions Links */}
-                    <motion.div
-                        className="lg:col-span-3"
-                        variants={itemVariants}
-                    >
-                        <h3 className="text-white font-semibold text-base mb-5">Solutions</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    ESG
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    GHG
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    Software
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#services" className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors">
-                                    Regulatory Compliance
-                                </a>
-                            </li>
-                        </ul>
-                    </motion.div>
-
-                    {/* Resources Links */}
-                    <motion.div
-                        className="lg:col-span-3"
-                        variants={itemVariants}
-                    >
-                        <h3 className="text-white font-semibold text-base mb-5">Resources</h3>
-                        <ul className="space-y-3">
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => handleResourceClick(e, 'Blog')}
-                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
-                                >
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => handleResourceClick(e, 'Case Studies')}
-                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
-                                >
-                                    Case Studies
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => handleResourceClick(e, 'Documentation')}
-                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
-                                >
-                                    Documentation
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => handleResourceClick(e, 'Support')}
-                                    className="text-white/80 text-sm hover:text-[#3d9a7a] transition-colors cursor-pointer"
-                                >
-                                    Support
-                                </a>
-                            </li>
-                        </ul>
-                    </motion.div>
+                        {/* Centered Logo & Tagline for Mobile */}
+                        <div className="flex flex-col items-center text-center space-y-4">
+                            <img src={logofooter} alt="Sarv Sustain" className="h-24 w-auto" />
+                            <p className="text-white text-sm font-medium max-w-xs px-4">
+                                We Can Help You Achieve Your Sustainability Goals.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Divider Line */}
@@ -277,7 +232,7 @@ export default function Footer() {
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
                     {/* Copyright */}
-                    <p className="text-gray-500 text-sm text-center">
+                    <p className="text-gray-500 text-xs md:text-sm text-center">
                         © 2026 Tapclone. All Rights Reserved.
                     </p>
                 </motion.div>

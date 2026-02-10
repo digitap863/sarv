@@ -11,10 +11,23 @@
   font-family: 'Philosopher', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-} 
+}
 
 body {
   font-family: 'Inter Tight', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+/* Services Swiper */
+.services-swiper .swiper-pagination-bullet {
+  background: #205B23;
+  opacity: 0.3;
+  width: 8px;
+  height: 8px;
+}
+
+.services-swiper .swiper-pagination-bullet-active {
+  background: #205B23;
+  opacity: 1;
 }

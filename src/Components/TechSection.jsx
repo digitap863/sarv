@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { MdAnalytics, MdAutoMode, MdDescription, MdMonitor, MdPublic, MdVerified } from 'react-icons/md';
 
 const techbg = '/images/techbg.png';
+const techbgmob = '/images/techbgmob.png';
 const lines = '/images/linnes.svg';
 
 // Tech features data
@@ -91,32 +92,42 @@ function TechSection() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full min-h-[600px] md:min-h-[800px] overflow-hidden bg-white"
+            className="relative w-full min-h-[700px] md:min-h-[800px] overflow-hidden bg-white flex flex-col md:block"
         >
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img
                     src={techbg}
                     alt="Technology background"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hidden md:block"
+                />
+                <img
+                    src={techbgmob}
+                    alt="Technology background mobile"
+                    className="w-full h-full object-cover md:hidden block"
                 />
                 {/* Overlay for better readability */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20 md:bg-gradient-to-r md:from-black/50 md:via-transparent md:to-transparent"></div>
             </div>
 
             {/* Content Container */}
             <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 min-h-[600px] md:min-h-[700px]">
 
-                {/* Left Content Card */}
+                {/* Lines Image - First on Mobile */}
+                <div className="relative md:absolute md:bottom-0 md:right-0 w-full md:w-auto h-full md:h-full flex items-center justify-center order-1 md:order-2 overflow-hidden">
+                    <img src={lines} alt="lines" className="w-full h-full object-contain scale-110 md:scale-100" />
+                </div>
+
+                {/* Left Content Card - Second on Mobile */}
                 <motion.div
-                    className="absolute left-6 md:left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 md:p-8 max-w-xl z-20"
+                    className="relative md:absolute md:left-4 md:top-1/2 md:-translate-y-1/2 bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-10 max-w-xl z-20 order-2 md:order-1 mt-6 md:mt-0 shadow-2xl"
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                     variants={containerVariants}
                 >
                     {/* Subtitle */}
                     <motion.p
-                        className="text-white/90 text-xs md:text-sm uppercase tracking-[3px] mb-4 font-medium text-center"
+                        className="text-white/90 text-xs md:text-sm uppercase tracking-[3px] md:mb-4 mb-3 font-medium  text-center"
                         variants={itemVariants}
                     >
                         SCIENCE MEETS INNOVATION
@@ -124,7 +135,7 @@ function TechSection() {
 
                     {/* Main Heading */}
                     <motion.h2
-                        className="text-white text-2xl md:text-3xl lg:text-4xl font-bold uppercase mb-6 leading-tight tracking-wide font-philosopher text-center"
+                        className="text-white text-lg md:text-3xl lg:text-4xl font-bold uppercase md:mb-6 mb-4 leading-tight tracking-wide font-philosopher  text-center"
                         variants={itemVariants}
                     >
                         TECHNOLOGY THAT SUPPORTS SUSTAINABILITY
@@ -132,7 +143,7 @@ function TechSection() {
 
                     {/* Description */}
                     <motion.p
-                        className="text-white/80 text-sm md:text-base leading-relaxed mb-4 text-center"
+                        className="text-white/80 text-sm md:text-lg leading-relaxed md:mb-6 mb-4  text-center"
                         variants={itemVariants}
                     >
                         We Combine Environmental Science With Intelligent Software To Analyse Data, Identify Risks, Verify Results, And Support Long-Term Environmental Sustainability.
@@ -140,17 +151,12 @@ function TechSection() {
 
                     {/* Additional Text */}
                     <motion.p
-                        className="text-white/70 text-xs md:text-sm leading-relaxed text-center"
+                        className="text-white/70 text-xs md:text-sm leading-relaxed  text-center"
                         variants={itemVariants}
                     >
                         From Real-Time Monitoring To Advanced Reporting, Our Tools Help Organizations Make Informed, Responsible Decisions.
                     </motion.p>
                 </motion.div>
-
-                {/* Right Side - Tech Features (One by One Animation) */}
-                <div className="absolute bottom-0 right-0 pointer-events-none overflow-hidden">
-                    <img src={lines} alt="lines" className="w-full h-full object-contain" />
-                </div>
             </div>
 
             {/* Top and Bottom fade overlays */}
