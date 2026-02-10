@@ -66,12 +66,15 @@ const Banner = () => {
                 <img src={cloud1} alt="" className="hidden lg:block absolute top-56 -left-[13%] w-auto md:h-[30vh] h-[10vh] z-10" style={{ animation: 'floatCloudHalf 80s linear infinite', animationDelay: '2s' }} />
 
                 {/* White Gradient Overlay - Bottom Only */}
-                <div
+                {/* <div
                     className="absolute inset-0 z-[3] pointer-events-none"
                     style={{
-                        background: 'linear-gradient(to bottom, rgba(251,252,251,0) 0%, rgba(251,252,251,0) 80%, rgba(251,252,251,0.5) 90%, rgba(251,252,251,0.8) 95%, #FBFCFB 100%)'
+                        background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 75%, rgba(255,255,255,0.6) 85%, rgba(255,255,255,0.9) 95%, #ffffff 100%)'
                     }}
-                />
+                /> */}
+
+                {/* Mobile Bottom Blend */}
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent md:hidden z-[4] pointer-events-none" />
 
 
 

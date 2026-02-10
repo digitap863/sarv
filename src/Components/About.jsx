@@ -90,7 +90,7 @@ export default function About() {
       <section
         ref={sectionRef}
         id="about"
-        className="relative h-auto md:py-20 py-12  md:px-6  px-3 overflow-hidden"
+        className="relative h-auto md:py-20 py-12 md:px-6 px-3 overflow-hidden bg-white"
       >
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -161,7 +161,7 @@ export default function About() {
               </motion.div>
 
               {/* aboutmob image in the mobile view only */}
-              <div className="md:hidden block relative ">
+              <div className="md:hidden block relative bg-white">
                 <motion.img
                   src={aboutmob}
                   alt="About background"
@@ -170,14 +170,14 @@ export default function About() {
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
                   transition={{ duration: 1.2, delay: 0.2 }}
                 />
-                {/* Top blend */}
-                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#FBFCFB] to-transparent" />
-                {/* Bottom blend */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FBFCFB] to-transparent" />
+                {/* Top blend - 1px overlap to hide seam */}
+                <div className="absolute -top-[1px] left-0 right-0 h-16 bg-gradient-to-b from-white via-white/80 to-transparent z-10" />
+                {/* Bottom blend - 1px overlap */}
+                <div className="absolute -bottom-[1px] left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent z-10" />
                 {/* Left blend */}
-                <div className="absolute top-0 bottom-0 left-0 w-10 bg-gradient-to-r from-[#FBFCFB] to-transparent" />
+                <div className="absolute top-0 bottom-0 -left-[1px] w-10 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
                 {/* Right blend */}
-                <div className="absolute top-0 bottom-0 right-0 w-10 bg-gradient-to-l from-[#FBFCFB] to-transparent" />
+                <div className="absolute top-0 bottom-0 -right-[1px] w-10 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
               </div>
 
               {/* Mission Statement */}
